@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2023 a las 16:32:59
+-- Tiempo de generación: 25-10-2023 a las 05:36:18
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -173,6 +173,7 @@ INSERT INTO `tickets` (`idticket`, `idusuario`, `idbanco`, `idoperacion`, `idloc
 
 CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL,
+  `idlocal` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `tipo_documento` varchar(20) NOT NULL,
   `num_documento` varchar(20) NOT NULL,
@@ -191,12 +192,12 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idusuario`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`, `eliminado`) VALUES
-(1, 'Christopher PS', 'DNI', '32434234', 'Lima, la molina', '944853484', 'admin@admin.com', 'superadmin', 'admin', 'admin', '1694997199.jpg', 1, 0),
-(2, 'Luis Gomez', 'DNI', '12345678', 'Lima la molina', '944853484', 'admin2@admin.com', 'admin', 'admin2', 'admin2', '1694993074.jpg', 1, 0),
-(3, 'Rodrigo Campos', 'RUC', '55603297664', 'Lima la molina', '944853484', 'email1@email.com', 'vendedor_total', 'admin3', 'admin3', '1694993155.jpg', 1, 0),
-(4, 'Javier Poma', 'RUC', '68439948231', 'Lima la molina', '944853484', 'email2@email.com', 'vendedor_impresion', 'javier', 'javier', '1694993101.jpg', 1, 0),
-(5, 'Miguel Lopez', 'DNI', '23423423', 'Lima la molina', '123123123', 'asdasd@asdasd.com', 'vendedor_total', 'miguel', 'miguel', '1694993101.jpg', 1, 0);
+INSERT INTO `usuario` (`idusuario`, `idlocal`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`, `eliminado`) VALUES
+(1, 1, 'Christopher PS', 'DNI', '32434234', 'Lima, la molina', '944853484', 'admin@admin.com', 'superadmin', 'admin', 'admin', '1694997199.jpg', 1, 0),
+(2, 2, 'Luis Gomez', 'DNI', '12345678', 'Lima la molina', '944853484', 'admin2@admin.com', 'admin', 'admin2', 'admin2', '1694993074.jpg', 1, 0),
+(3, 3, 'Rodrigo Campos', 'RUC', '55603297664', 'Lima la molina', '944853484', 'email1@email.com', 'vendedor_total', 'admin3', 'admin3', '1694993155.jpg', 1, 0),
+(4, 30, 'Javier Poma', 'RUC', '68439948231', 'Lima la molina', '944853484', 'email2@email.com', 'vendedor_impresion', 'javier', 'javier', '1694993101.jpg', 1, 0),
+(5, 6, 'Miguel Lopez', 'DNI', '23423423', 'Lima la molina', '123123123', 'asdasd@asdasd.com', 'vendedor_total', 'miguel', 'miguel', '1694993101.jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -334,7 +335,8 @@ ALTER TABLE `tickets`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`idusuario`);
+  ADD PRIMARY KEY (`idusuario`),
+  ADD KEY `idlocal` (`idlocal`);
 
 --
 -- Indices de la tabla `usuario_permiso`
