@@ -5,17 +5,17 @@ session_start();
 
 if (!isset($_SESSION["idusuario"])) {
     session_destroy();
-	header("Location: ../vistas/login.html");
+    header("Location: ../vistas/login.html");
     exit();
 }
 
-include_once "../modelos/Tickets.php";
+require('../modelos/Tickets.php');
 $ticket = new Ticket();
 $rspta = $ticket->listarTicketUnitario($_GET["id"]);
 $reg = $rspta->fetch_object();
 
 # Incluyendo librerias necesarias #
-include_once "ticket/code128.php";
+require('ticket/code128.php');
 
 # Modificando el ancho y alto del ticket #
 $pdf = new PDF_Code128('P', 'mm', array(68.5, 90));
