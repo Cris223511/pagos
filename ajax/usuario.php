@@ -13,9 +13,6 @@ require_once "../modelos/Usuario.php";
 
 $usuario = new Usuario();
 
-$idusuarioSession = $_SESSION["idusuario"];
-$cargoSession = $_SESSION["cargo"];
-
 $idusuario = isset($_POST["idusuario"]) ? limpiarCadena($_POST["idusuario"]) : "";
 $idlocal = isset($_POST["idlocal"]) ? limpiarCadena($_POST["idlocal"]) : "";
 $nombre = isset($_POST["nombre"]) ? limpiarCadena($_POST["nombre"]) : "";
@@ -209,6 +206,9 @@ switch ($_GET["op"]) {
 		break;
 
 	case 'selectUsuarios':
+		$idusuarioSession = $_SESSION["idusuario"];
+		$cargoSession = $_SESSION["cargo"];
+		
 		if ($cargoSession == "superadmin" || $cargoSession == "admin") {
 			$rspta = $usuario->listarASC();
 		} else {

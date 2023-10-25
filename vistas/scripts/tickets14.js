@@ -29,13 +29,15 @@ function init() {
 	mostrarform(false);
 	listar();
 
+	$("#visorPDF").hide();
+
 	$("#visualizar").hide();
 
 	$('#mTicket').addClass("treeview active");
 	$('#lTicket').addClass("active");
 
 	$.post("../ajax/tickets.php?op=listarTodosActivos", function (data) {
-		console.log(data)
+		// console.log(data)
 		const obj = JSON.parse(data);
 		localSession = obj.idlocal_session[0].id;
 		console.log(obj);
@@ -180,6 +182,35 @@ function guardaryeditar(e) {
 		event2();
 	}
 };
+
+function visualizar(idticket) {
+	$(".no_data").hide();
+	$("#visorPDF").show();
+	$('#visorPDF').attr("data", "../reportes/exTicket.php?id=" + idticket);
+}
+
+function imprimirPDF(pdfURL) {
+	var iframe = document.createElement('iframe');
+	iframe.style.display = 'none';
+	iframe.src = "../reportes/exTicket.php?id=" + pdfURL;
+	document.body.appendChild(iframe);
+
+	iframe.onload = function () {
+		iframe.contentWindow.print();
+		// document.body.removeChild(iframe);
+	};
+}
+
+// function imprimirPDF(pdfURL) {
+// 	// Abre la URL en una nueva ventana emergente
+// 	var popupWindow = window.open("../reportes/exTicket.php?id=" + pdfURL, '_blank', 'width=800, height=800');
+
+// 	// Espera a que la ventana emergente se cargue completamente
+// 	popupWindow.onload = function () {
+// 		// Imprime la ventana emergente
+// 		popupWindow.print();
+// 	};
+// }
 
 function event1() {
 	$("#btnGuardar").prop("disabled", true);
