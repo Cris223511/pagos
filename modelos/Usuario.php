@@ -289,7 +289,7 @@ class Usuario
 	//Función para verificar el acceso al sistema
 	public function verificar($login, $clave)
 	{
-		$sql = "SELECT idusuario,idlocal,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login,clave,condicion,eliminado FROM usuario WHERE login='$login' AND clave='$clave'";
+		$sql = "SELECT idusuario,idlocal,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login,clave,condicion,eliminado FROM usuario WHERE login='$login' AND clave='$clave' AND eliminado='0'";
 		return ejecutarConsulta($sql);
 	}
 }

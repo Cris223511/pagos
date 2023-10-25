@@ -11,17 +11,18 @@ function desbloquearCampos() {
 }
 
 function actualizarCorrelativo() {
-	$.post("../ajax/tickets.php?op=getLastNumTicket", function (e) {
-		console.log(e);
-		siguienteCorrelativo = generarSiguienteCorrelativo(e);
+	$.post("../ajax/tickets.php?op=getLastNumTicket", function (num) {
+		console.log(num);
+		siguienteCorrelativo = generarSiguienteCorrelativo(num);
 		$("#num_ticket").val(siguienteCorrelativo);
 	});
 }
 
 function generarSiguienteCorrelativo(correlativoActual) {
-	const siguienteNumero = Number(correlativoActual) + 1;
-	const longitudTotal = correlativoActual.length; // Obtener la longitud total del correlativo actual
-	const siguienteCorrelativo = siguienteNumero.toString().padStart(longitudTotal, "0");
+	const numeroActual = parseInt(correlativoActual, 10);
+	const siguienteNumero = numeroActual + 1;
+	const longitud = correlativoActual.length;
+	const siguienteCorrelativo = String(siguienteNumero).padStart(longitud, '0');
 	return siguienteCorrelativo;
 }
 
@@ -50,7 +51,7 @@ function init() {
 
 		for (const selectId in selects) {
 			if (obj.hasOwnProperty('correlativo') && obj.correlativo.length > 0) {
-				const correlativoActual = obj.correlativo[0].titulo;
+				const correlativoActual = obj.correlativo[0].titulo || "00000";
 				siguienteCorrelativo = generarSiguienteCorrelativo(correlativoActual);
 				$("#num_ticket").val(siguienteCorrelativo);
 			}

@@ -3,7 +3,7 @@
 class db
 {
 	private $servidor = "localhost";
-	private $db = "pagos";
+	private $db = "pagos2";
 	private $port = 3306;
 	private $charset = "utf8";
 	private $usuario = "root";

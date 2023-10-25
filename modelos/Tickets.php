@@ -164,7 +164,7 @@ class Ticket
 			UNION ALL
 			SELECT 'local' AS tabla, l.idlocal AS id, l.titulo, u.nombre AS usuario, local_ruc AS ruc FROM locales l LEFT JOIN usuario u ON l.idusuario = u.idusuario WHERE l.idusuario <> 0 AND l.estado='activado' AND l.eliminado='0'
 			UNION ALL
-			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets ORDER BY num_ticket ASC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
+			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets ORDER BY idticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
 
 		return ejecutarConsulta($sql);
 	}
@@ -177,7 +177,7 @@ class Ticket
 			UNION ALL
 			SELECT 'local' AS tabla, l.idlocal AS id, l.titulo, u.nombre AS usuario, local_ruc AS ruc FROM locales l LEFT JOIN usuario u ON l.idusuario = u.idusuario WHERE l.idusuario='$idusuario' AND l.idusuario <> 0 AND l.estado='activado' AND l.eliminado='0'
 			UNION ALL
-			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets ORDER BY num_ticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
+			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets ORDER BY idticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
 
 		return ejecutarConsulta($sql);
 	}
