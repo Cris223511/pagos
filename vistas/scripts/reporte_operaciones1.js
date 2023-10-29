@@ -1,16 +1,43 @@
 var tabla;
 
 function init() {
-	listar();
+	listarVacio();
 
-	$('#mrComisiones').addClass("treeview active");
-	$('#lrComisiones').addClass("active");
+	$('#mrPagos').addClass("treeview active");
+	$('#lrOperacion').addClass("active");
 
-	$.post("../ajax/usuario.php?op=selectUsuarios", function (r) {
+	$.post("../ajax/operaciones.php?op=selectOperacion", function (r) {
 		console.log(r);
-		$("#idusuario").html(r);
-		$('#idusuario').selectpicker('refresh');
+		$("#idoperacion").html(r);
+		$('#idoperacion').selectpicker('refresh');
 	})
+}
+
+function listarVacio() {
+	if ($.fn.DataTable.isDataTable('#tbllistado')) {
+		$('#tbllistado').DataTable().destroy();
+	}
+
+	$("#fecha_inicio").val("");
+	$("#fecha_fin").val("");
+
+	tabla = $('#tbllistado').dataTable(
+		{
+			"lengthMenu": [5, 10, 25, 75, 100],
+			"aProcessing": false,
+			"aServerSide": false,
+			"data": [],
+			"language": {
+				"emptyTable": "Sin datos por mostrar"
+			},
+			"bDestroy": true,
+			"iDisplayLength": 5,
+			"order": [],
+			"bFilter": false,
+			"createdRow": function (row, data, dataIndex) {
+				$(row).find('td').addClass('nowrap-cell');
+			}
+		}).DataTable();
 }
 
 function listar() {
@@ -20,7 +47,7 @@ function listar() {
 	var fecha_inicio = $("#fecha_inicio").val();
 	var fecha_fin = $("#fecha_fin").val();
 
-	$("#buscarPorUsuario").prop("disabled", true);
+	$("#buscarPorOperacion").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
 	$("#resetear").prop("disabled", true);
@@ -38,8 +65,8 @@ function listar() {
 			],
 			"ajax":
 			{
-				url: '../ajax/reporte_comisiones.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, usuario: "" },
+				url: '../ajax/reporte_operaciones.php?op=listar',
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, operacion: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -61,12 +88,12 @@ function listar() {
 			"order": [],
 			"bFilter": false,
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
 	tabla.on('init.dt', function () {
-		$("#buscarPorUsuario").prop("disabled", false);
+		$("#buscarPorOperacion").prop("disabled", false);
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
@@ -85,10 +112,10 @@ function buscarPorFecha() {
 		return;
 	}
 
-	$("#idusuario").val("");
-	$("#idusuario").selectpicker('refresh');
+	$("#idoperacion").val("");
+	$("#idoperacion").selectpicker('refresh');
 
-	$("#buscarPorUsuario").prop("disabled", true);
+	$("#buscarPorOperacion").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
 	$("#resetear").prop("disabled", true);
@@ -106,8 +133,8 @@ function buscarPorFecha() {
 			],
 			"ajax":
 			{
-				url: '../ajax/reporte_comisiones.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, usuario: "" },
+				url: '../ajax/reporte_operaciones.php?op=listar',
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, operacion: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -133,28 +160,25 @@ function buscarPorFecha() {
 		}).DataTable();
 
 	tabla.on('init.dt', function () {
-		$("#buscarPorUsuario").prop("disabled", false);
+		$("#buscarPorOperacion").prop("disabled", false);
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
 	});
 }
 
-function buscarPorUsuario() {
-	var usuario = $("#idusuario").val();
-	var nombreUsuario = "";
+function buscarPorOperacion() {
+	var operacion = $("#idoperacion").val();
+	var nombreOperacion = "";
 
-	if (usuario === "") {
-		alert("El usuario es obligatoria.");
+	if (operacion === "") {
+		alert("La operación es obligatoria.");
 		return;
 	} else {
-		nombreUsuario = $("#idusuario").find("option:selected").text().trim();
+		nombreOperacion = $("#idoperacion").find("option:selected").text().split(" - ")[0].trim();
 	}
 
-	console.log(usuario)
-	console.log(nombreUsuario)
-
-	$("#buscarPorUsuario").prop("disabled", true);
+	$("#buscarPorOperacion").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
 	$("#resetear").prop("disabled", true);
@@ -172,8 +196,8 @@ function buscarPorUsuario() {
 			],
 			"ajax":
 			{
-				url: '../ajax/reporte_comisiones.php?op=listar',
-				data: { fecha_inicio: "", fecha_fin: "", usuario: nombreUsuario },
+				url: '../ajax/reporte_operaciones.php?op=listar',
+				data: { fecha_inicio: "", fecha_fin: "", operacion: nombreOperacion },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -194,12 +218,12 @@ function buscarPorUsuario() {
 			"iDisplayLength": 5,
 			"order": [],
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(10)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
 	tabla.on('init.dt', function () {
-		$("#buscarPorUsuario").prop("disabled", false);
+		$("#buscarPorOperacion").prop("disabled", false);
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
@@ -210,16 +234,16 @@ function buscarTodos() {
 	listar();
 	$("#fecha_inicio").val("");
 	$("#fecha_fin").val("");
-	$("#idusuario").val("");
-	$("#idusuario").selectpicker('refresh');
+	$("#idoperacion").val("");
+	$("#idoperacion").selectpicker('refresh');
 }
 
 function resetear() {
-	listar();
+	listarVacio();
 	$("#fecha_inicio").val("");
 	$("#fecha_fin").val("");
-	$("#idusuario").val("");
-	$("#idusuario").selectpicker('refresh');
+	$("#idoperacion").val("");
+	$("#idoperacion").selectpicker('refresh');
 }
 
 init();

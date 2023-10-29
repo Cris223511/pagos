@@ -14,10 +14,12 @@ class Usuario
 		// Primero, verifique si el nombre de usuario ya existe en la tabla
 		$nombreExiste = $this->verificarNombreExiste($login);
 
-		if ($nombreExiste) {
+		if ($nombreExiste)
 			// El nombre de usuario ya existe, no se puede insertar
 			return false;
-		}
+
+		if (empty($imagen))
+			$imagen = "default.png";
 
 		$sql1 = "INSERT INTO usuario (idlocal,nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,login,clave,imagen,condicion,eliminado)
 		VALUES ('$idlocal','$nombre','$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$login','$clave','$imagen','1','0')";
@@ -164,7 +166,9 @@ class Usuario
 	//Implementamos un método para eliminar registros
 	public function eliminar($idusuario)
 	{
+		// al eliminar usuario, cambio el estado "eliminado" de ese usuario a "1".
 		$sql1 = "UPDATE usuario SET eliminado = '1' WHERE idusuario='$idusuario'";
+		// todos los locales de ese idusuario, lo desasigno.
 		$sql2 = "UPDATE locales SET idusuario = 0 WHERE idusuario='$idusuario'";
 		ejecutarConsulta($sql1);
 		return ejecutarConsulta($sql2);
@@ -289,7 +293,7 @@ class Usuario
 	//Función para verificar el acceso al sistema
 	public function verificar($login, $clave)
 	{
-		$sql = "SELECT idusuario,idlocal,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login,clave,condicion,eliminado FROM usuario WHERE login='$login' AND clave='$clave' AND eliminado='0'";
+		$sql = "SELECT idusuario,idlocal,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login,clave,condicion,eliminado FROM usuario WHERE login='$login' AND clave='$clave' AND eliminado = '0'";
 		return ejecutarConsulta($sql);
 	}
 }

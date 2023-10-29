@@ -1,16 +1,43 @@
 var tabla;
 
 function init() {
-	listar();
+	listarVacio();
 
-	$('#mrPagos').addClass("treeview active");
-	$('#lrBanco').addClass("active");
+	$('#mPerfilUsuario').addClass("treeview active");
+	$('#lrLocales').addClass("active");
 
-	$.post("../ajax/bancos.php?op=selectBanco", function (r) {
+	$.post("../ajax/locales.php?op=selectLocales", function (r) {
 		console.log(r);
-		$("#idbanco").html(r);
-		$('#idbanco').selectpicker('refresh');
+		$("#idlocal").html(r);
+		$('#idlocal').selectpicker('refresh');
 	})
+}
+
+function listarVacio() {
+	if ($.fn.DataTable.isDataTable('#tbllistado')) {
+		$('#tbllistado').DataTable().destroy();
+	}
+
+	$("#fecha_inicio").val("");
+	$("#fecha_fin").val("");
+
+	tabla = $('#tbllistado').dataTable(
+		{
+			"lengthMenu": [5, 10, 25, 75, 100],
+			"aProcessing": false,
+			"aServerSide": false,
+			"data": [],
+			"language": {
+				"emptyTable": "Sin datos por mostrar"
+			},
+			"bDestroy": true,
+			"iDisplayLength": 5,
+			"order": [],
+			"bFilter": false,
+			"createdRow": function (row, data, dataIndex) {
+				$(row).find('td').addClass('nowrap-cell');
+			}
+		}).DataTable();
 }
 
 function listar() {
@@ -20,7 +47,7 @@ function listar() {
 	var fecha_inicio = $("#fecha_inicio").val();
 	var fecha_fin = $("#fecha_fin").val();
 
-	$("#buscarPorBanco").prop("disabled", true);
+	$("#buscarPorLocal").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
 	$("#resetear").prop("disabled", true);
@@ -38,8 +65,8 @@ function listar() {
 			],
 			"ajax":
 			{
-				url: '../ajax/reporte_bancos.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, banco: "" },
+				url: '../ajax/reporte_locales.php?op=listar',
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, local: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -66,7 +93,7 @@ function listar() {
 		}).DataTable();
 
 	tabla.on('init.dt', function () {
-		$("#buscarPorBanco").prop("disabled", false);
+		$("#buscarPorLocal").prop("disabled", false);
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
@@ -85,10 +112,10 @@ function buscarPorFecha() {
 		return;
 	}
 
-	$("#idbanco").val("");
-	$("#idbanco").selectpicker('refresh');
+	$("#idlocal").val("");
+	$("#idlocal").selectpicker('refresh');
 
-	$("#buscarPorBanco").prop("disabled", true);
+	$("#buscarPorLocal").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
 	$("#resetear").prop("disabled", true);
@@ -106,8 +133,8 @@ function buscarPorFecha() {
 			],
 			"ajax":
 			{
-				url: '../ajax/reporte_bancos.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, banco: "" },
+				url: '../ajax/reporte_locales.php?op=listar',
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, local: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -133,25 +160,25 @@ function buscarPorFecha() {
 		}).DataTable();
 
 	tabla.on('init.dt', function () {
-		$("#buscarPorBanco").prop("disabled", false);
+		$("#buscarPorLocal").prop("disabled", false);
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
 	});
 }
 
-function buscarPorBanco() {
-	var banco = $("#idbanco").val();
-	var nombreBanco = "";
+function buscarPorLocal() {
+	var local = $("#idlocal").val();
+	var nombreLocal = "";
 
-	if (banco === "") {
-		alert("El banco es obligatorio.");
+	if (local === "") {
+		alert("El local es obligatorio.");
 		return;
 	} else {
-		nombreBanco = $("#idbanco").find("option:selected").text().split(" - ")[0].trim();
+		nombreLocal = $("#idlocal").find("option:selected").text().split(" - ")[0].trim();
 	}
 
-	$("#buscarPorBanco").prop("disabled", true);
+	$("#buscarPorLocal").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
 	$("#resetear").prop("disabled", true);
@@ -169,8 +196,8 @@ function buscarPorBanco() {
 			],
 			"ajax":
 			{
-				url: '../ajax/reporte_bancos.php?op=listar',
-				data: { fecha_inicio: "", fecha_fin: "", banco: nombreBanco },
+				url: '../ajax/reporte_locales.php?op=listar',
+				data: { fecha_inicio: "", fecha_fin: "", local: nombreLocal },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -196,7 +223,7 @@ function buscarPorBanco() {
 		}).DataTable();
 
 	tabla.on('init.dt', function () {
-		$("#buscarPorBanco").prop("disabled", false);
+		$("#buscarPorLocal").prop("disabled", false);
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
@@ -207,16 +234,16 @@ function buscarTodos() {
 	listar();
 	$("#fecha_inicio").val("");
 	$("#fecha_fin").val("");
-	$("#idbanco").val("");
-	$("#idbanco").selectpicker('refresh');
+	$("#idlocal").val("");
+	$("#idlocal").selectpicker('refresh');
 }
 
 function resetear() {
-	listar();
+	listarVacio();
 	$("#fecha_inicio").val("");
 	$("#fecha_fin").val("");
-	$("#idbanco").val("");
-	$("#idbanco").selectpicker('refresh');
+	$("#idlocal").val("");
+	$("#idlocal").selectpicker('refresh');
 }
 
 init();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2023 a las 05:36:18
+-- Tiempo de generación: 27-10-2023 a las 04:42:17
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -75,7 +75,7 @@ INSERT INTO `locales` (`idlocal`, `idusuario`, `titulo`, `local_ruc`, `descripci
 (4, 4, 'Local de Comas, Lima', '49577549913', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-18 15:56:56', 'activado', 0),
 (6, 5, 'Local de Ventanilla, Lima', '44448564548', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-18 15:56:56', 'activado', 0),
 (8, 5, 'Local de Ate Vitarte, Lima', '34234234234', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-25 10:48:54', 'activado', 0),
-(9, 0, 'Local de Cieneguilla, Lima', '39203486095', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-25 23:56:09', 'activado', 0),
+(9, 15, 'Local de Cieneguilla, Lima', '39203486095', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-25 23:56:09', 'activado', 0),
 (25, 0, 'Local de San Miguel, Lima', '34985348795', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-01 22:31:54', 'activado', 0),
 (29, 4, 'adsadsads', '32342342344', 'dsadasdasdsad', '2023-10-08 14:27:42', 'activado', 1),
 (30, 4, 'Local de SJM, Lima', '99956756761', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-08 23:14:57', 'activado', 0);
@@ -163,7 +163,10 @@ INSERT INTO `tickets` (`idticket`, `idusuario`, `idbanco`, `idoperacion`, `idloc
 (21, 4, 11, 8, 30, '1800583955', '3423423454', 'hypermarket', 123123.00, 123123.00, 'Titular: PEREZ CHAPULIN LUIS ALEXANDER\r\nFecha y hora: 16/06/2023 12:05\r\nNúmero de operación: 00052462\r\nCuenta de origen: Ahorro Soles 220-99851954-0-59\r\nNombre del beneficiario: MEDINA MARIA YANETH\r\nDocumento del beneficiario: DNI, 47012219\r\nMonto a pagar al beneficiario: S/ 100.00\r\nComisión orden de pago: S/ 5.00\r\nMonto total: S/ 105.00', '2023-10-15 15:09:16', 'activado'),
 (22, 4, 11, 8, 30, '123', '1231313', 'hypermarket', 123123.00, 123123.00, 'adsads', '2023-10-15 15:11:48', 'activado'),
 (23, 1, 1, 1, 1, '000055453', '2424324', 'hypermarket', 234324.00, 3244.00, 'asdsad', '2023-10-15 15:52:44', 'activado'),
-(24, 1, 1, 1, 1, '134', '123123', 'hypermarket', 24324.00, 234324.00, 'adasdd', '2023-10-15 15:56:17', 'activado');
+(24, 1, 1, 1, 1, '134', '123123', 'hypermarket', 24324.00, 234324.00, 'adasdd', '2023-10-15 15:56:17', 'activado'),
+(25, 1, 1, 1, 2, '135', '1232313', 'courier', 123123.00, 123213123.00, 'asdsdasad', '2023-10-25 22:52:33', 'activado'),
+(26, 1, 2, 3, 4, '136', '123213', 'courier', 23213.00, 12213.00, 'asdsadsdsad', '2023-10-25 23:39:05', 'activado'),
+(27, 1, 2, 8, 3, '137', '123', 'courier', 123.00, 123.00, '123123', '2023-10-25 23:40:03', 'activado');
 
 -- --------------------------------------------------------
 
@@ -197,7 +200,8 @@ INSERT INTO `usuario` (`idusuario`, `idlocal`, `nombre`, `tipo_documento`, `num_
 (2, 2, 'Luis Gomez', 'DNI', '12345678', 'Lima la molina', '944853484', 'admin2@admin.com', 'admin', 'admin2', 'admin2', '1694993074.jpg', 1, 0),
 (3, 3, 'Rodrigo Campos', 'RUC', '55603297664', 'Lima la molina', '944853484', 'email1@email.com', 'vendedor_total', 'admin3', 'admin3', '1694993155.jpg', 1, 0),
 (4, 30, 'Javier Poma', 'RUC', '68439948231', 'Lima la molina', '944853484', 'email2@email.com', 'vendedor_impresion', 'javier', 'javier', '1694993101.jpg', 1, 0),
-(5, 6, 'Miguel Lopez', 'DNI', '23423423', 'Lima la molina', '123123123', 'asdasd@asdasd.com', 'vendedor_total', 'miguel', 'miguel', '1694993101.jpg', 1, 0);
+(5, 6, 'Miguel Lopez', 'DNI', '23423423', 'Lima la molina', '123123123', 'asdasd@asdasd.com', 'vendedor_total', 'miguel', 'miguel', '1694993101.jpg', 1, 0),
+(15, 9, 'jorgito', 'RUC', '12312321323', 'Lima', '973182294', 'cris_antonio2001@hotmail.com', 'vendedor_impresion', 'jorgito', 'jorgito', 'default.png', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -289,7 +293,12 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 (169, 1, 3),
 (170, 1, 4),
 (171, 1, 5),
-(172, 1, 6);
+(172, 1, 6),
+(179, 15, 2),
+(180, 15, 3),
+(181, 15, 4),
+(182, 15, 5),
+(183, 15, 6);
 
 --
 -- Índices para tablas volcadas
@@ -378,19 +387,19 @@ ALTER TABLE `permiso`
 -- AUTO_INCREMENT de la tabla `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `idticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_permiso`
 --
 ALTER TABLE `usuario_permiso`
-  MODIFY `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -9,15 +9,17 @@ class Ticket
 
 	public function agregar($idusuario, $idbanco, $idoperacion, $idlocal, $num_ticket, $num_ope, $tipo_letra, $importe, $comision, $descripcion)
 	{
+		date_default_timezone_set("America/Lima");
 		$sql = "INSERT INTO tickets (idusuario, idbanco, idoperacion, idlocal, num_ticket, num_ope, tipo_letra, importe, comision, descripcion, fecha_hora, estado)
-            VALUES ('$idusuario', '$idbanco', '$idoperacion', '$idlocal', '$num_ticket', '$num_ope', '$tipo_letra', '$importe', '$comision', '$descripcion', NOW(), 'activado')";
+            VALUES ('$idusuario', '$idbanco', '$idoperacion', '$idlocal', '$num_ticket', '$num_ope', '$tipo_letra', '$importe', '$comision', '$descripcion', SYSDATE(), 'activado')";
 		return ejecutarConsulta($sql);
 	}
 
 	public function agregar2($idusuario, $idbanco, $idoperacion, $idlocal, $num_ticket, $num_ope, $tipo_letra, $importe, $comision, $descripcion)
 	{
+		date_default_timezone_set("America/Lima");
 		$sql = "INSERT INTO tickets (idusuario, idbanco, idoperacion, idlocal, num_ticket, num_ope, tipo_letra, importe, comision, descripcion, fecha_hora, estado)
-            VALUES ('$idusuario', '$idbanco', '$idoperacion', '$idlocal', '$num_ticket', '$num_ope', '$tipo_letra', '$importe', '$comision', '$descripcion', NOW(), 'activado')";
+            VALUES ('$idusuario', '$idbanco', '$idoperacion', '$idlocal', '$num_ticket', '$num_ope', '$tipo_letra', '$importe', '$comision', '$descripcion', SYSDATE(), 'activado')";
 
 		$idticketnew = ejecutarConsulta_retornarID($sql);
 		return array("success" => true, "idticket" => $idticketnew);

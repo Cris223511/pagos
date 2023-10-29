@@ -982,7 +982,7 @@ class FPDF
 	{
 		# N° TICKET #
 		$this->SetXY(1.5, 2);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->Cell(0, 5, utf8_decode("N° TICKET: $num_ticket"), 0, 'L', false);
 
@@ -990,51 +990,51 @@ class FPDF
 		list($fecha, $hora) = explode(' ', $date);
 
 		$this->SetXY(45.5, 2);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
-		$this->Cell(0, 5, utf8_decode("$fecha  $hora"), 0, 'L', false);
+		$this->Cell(0, 5, utf8_decode("$fecha $hora"), 0, 'L', false);
 
 		# N° OPERACIÓN #
 		$this->SetXY(1.5, 5);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->Cell(0, 5, utf8_decode("N° OPERACIÓN: $num_ope"), 0, 'L', false);
 
 		# LOCAL #
 		$this->SetY(10.5);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
-		$this->MultiCell(0, 5, utf8_decode(strtoupper("$local")), 0, 'C', false);
+		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("$local")), 0, 'C', false);
 
 		# RUC #
 		$this->SetY(13);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
-		$this->MultiCell(0, 5, utf8_decode(strtoupper("RUC: $local_ruc")), 0, 'C', false);
+		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("RUC: $local_ruc")), 0, 'C', false);
 
 		# BANCO #
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
-		$this->MultiCell(0, 5, utf8_decode(strtoupper("AGENTE $banco")), 0, 'C', false);
+		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("AGENTE $banco")), 0, 'C', false);
 
 		# OPERACIÓN #
 		$this->SetXY(1.5, 24);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
-		$this->MultiCell(0, 5, utf8_decode(strtoupper("OPERACIÓN: $operacion")), 0, 'L', false);
+		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("OPERACIÓN: $operacion")), 0, 'L', false);
 
 		# USUARIO #
 		$this->SetXY(1.5, 27);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
-		$this->MultiCell(0, 5, utf8_decode(strtoupper("USUARIO: $usuario")), 0, 'L', false);
+		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("USUARIO: $usuario")), 0, 'L', false);
 	}
 
 	function cuerpo($descripcion, $importe, $comision)
 	{
 		# DESCRIPCIÓN #
 		$this->SetXY(1.5, 34);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 3.5, utf8_decode(mb_strtoupper("$descripcion")), 0, 'L', false);
 
@@ -1042,13 +1042,13 @@ class FPDF
 
 		# IMPORTE #
 		$this->SetX(1.5);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 3.5, utf8_decode(mb_strtoupper("IMPORTE: S/. $importe")), 0, 'L', false);
 
 		# COMISIÓN #
 		$this->SetX(1.5);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 3.5, utf8_decode(mb_strtoupper("COMISIÓN: S/. $comision")), 0, 'L', false);
 	}
@@ -1057,7 +1057,7 @@ class FPDF
 	{
 		# FORMA DE PAGO #
 		$this->Ln(-1.5);
-		$this->SetFont('courier', 'B', 5);
+		$this->SetFont('courier', '', 6.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 5, utf8_decode("¡GRACIAS POR TU VISITA!"), 0, 'C', false);
 	}

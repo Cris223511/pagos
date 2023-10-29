@@ -9,8 +9,9 @@ class LocalDisponible
 
 	public function agregar($titulo, $local_ruc, $descripcion)
 	{
+		date_default_timezone_set("America/Lima");
 		$sql = "INSERT INTO locales (idusuario, titulo, local_ruc, descripcion, fecha_hora, estado)
-            VALUES (0,'$titulo','$local_ruc','$descripcion', NOW(), 'activado')";
+            VALUES (0,'$titulo','$local_ruc','$descripcion', SYSDATE(), 'activado')";
 		return ejecutarConsulta($sql);
 	}
 

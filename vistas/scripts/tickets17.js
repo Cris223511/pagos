@@ -65,7 +65,7 @@ function init() {
 					select.html('<option value="">- Seleccione -</option>');
 					obj[atributo].forEach(function (opcion) {
 						if (atributo != "local") {
-							select.append('<option value="' + opcion.id + '">' + opcion.titulo + ' - ' + opcion.usuario + '</option>');
+							select.append('<option value="' + opcion.id + '">' + opcion.titulo + '</option>');
 						} else {
 							select.append('<option value="' + opcion.id + '" data-local-ruc="' + opcion.ruc + '">' + opcion.titulo + ' - ' + opcion.usuario + '</option>');
 						}

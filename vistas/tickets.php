@@ -179,8 +179,8 @@ if (!isset($_SESSION["nombre"])) {
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <label>Tipo de letra(*):</label>
                       <select class="form-control select-picker" name="tipo_letra" id="tipo_letra" required>
-                        <option value="">- Seleccione -</option>
-                        <option value="hypermarket">Hypermarket</option>
+                        <!-- <option value="">- Seleccione -</option> -->
+                        <option value="courier">Courier</option>
                       </select>
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

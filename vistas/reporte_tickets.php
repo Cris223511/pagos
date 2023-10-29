@@ -43,7 +43,7 @@ if (!isset($_SESSION["nombre"])) {
               </div>
               <div class="panel-body formularioregistros" style="background-color: #ecf0f5 !important; padding-left: 0 !important; padding-right: 0 !important; height: max-content;">
                 <div class="table-responsive" style="padding: 8px !important; padding: 20px !important; background-color: white;">
-                  <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important; padding-right: 20px;">
+                  <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important;">
                     <thead>
                       <th>Opciones</th>
                       <th style="white-space: nowrap;">Fecha y hora</th>
@@ -91,7 +91,7 @@ if (!isset($_SESSION["nombre"])) {
 
   require 'footer.php';
   ?>
-  <script type="text/javascript" src="scripts/reporte_tickets.js"></script>
+  <script type="text/javascript" src="scripts/reporte_tickets1.js"></script>
 <?php
 }
 ob_end_flush();

@@ -103,8 +103,7 @@ if (!isset($_SESSION["nombre"])) {
 							(($reg->estado == 'activado') ?
 								(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idlocal . ')"><i class="fa fa-close"></i></button>')) .
-								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idlocal . ')"><i class="fa fa-trash"></i></button>')) :
-								(('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
+								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idlocal . ')"><i class="fa fa-trash"></i></button>')) : (('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idlocal . ')"><i class="fa fa-check"></i></button>')) .
 								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idlocal . ')"><i class="fa fa-trash"></i></button>'))) . '</div>',
 						"1" => ucwords($reg->nombre),
@@ -151,11 +150,20 @@ if (!isset($_SESSION["nombre"])) {
 				echo json_encode($data);
 				break;
 
+			case 'selectLocales':
+				$rspta = $locales->listar();
+
+				echo '<option value="">- Seleccione -</option>';
+				while ($reg = $rspta->fetch_object()) {
+					echo '<option value="' . $reg->idlocal . '"> ' . $reg->titulo . '</option>';
+				}
+				break;
+
 			case 'selectLocalUsuario':
 				$rspta = $locales->listarPorUsuarioActivos($idusuariolocal);
 
 				while ($reg = $rspta->fetch_object()) {
-					echo '<option value="' . $reg->idlocal . '" data-local-ruc="' . $reg->local_ruc . '"> ' . $reg->titulo . ' - ' . $reg->nombre . '</option>';
+					echo '<option value="' . $reg->idlocal . '" data-local-ruc="' . $reg->local_ruc . '"> ' . $reg->titulo . '</option>';
 				}
 				break;
 

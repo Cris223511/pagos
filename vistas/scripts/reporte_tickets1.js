@@ -1,10 +1,37 @@
 var tabla;
 
 function init() {
-	listar();
+	listarVacio();
 
 	$('#mrPagos').addClass("treeview active");
 	$('#lrTicket').addClass("active");
+}
+
+function listarVacio() {
+	if ($.fn.DataTable.isDataTable('#tbllistado')) {
+		$('#tbllistado').DataTable().destroy();
+	}
+
+	$("#fecha_inicio").val("");
+	$("#fecha_fin").val("");
+
+	tabla = $('#tbllistado').dataTable(
+		{
+			"lengthMenu": [5, 10, 25, 75, 100],
+			"aProcessing": false,
+			"aServerSide": false,
+			"data": [],
+			"language": {
+				"emptyTable": "Sin datos por mostrar"
+			},
+			"bDestroy": true,
+			"iDisplayLength": 5,
+			"order": [],
+			"bFilter": false,
+			"createdRow": function (row, data, dataIndex) {
+				$(row).find('td').addClass('nowrap-cell');
+			}
+		}).DataTable();
 }
 
 function listar() {
@@ -134,7 +161,7 @@ function buscarTodos() {
 }
 
 function resetear() {
-	listar();
+	listarVacio();
 	$("#fecha_inicio").val("");
 	$("#fecha_fin").val("");
 }

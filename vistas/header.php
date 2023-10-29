@@ -286,7 +286,8 @@ $cargo_login = $_SESSION['cargo_detalle'];
             </a>
             <ul class="treeview-menu">
               <li id="lConfUsuario"><a href="confUsuario.php"><i class="fa fa-circle-o"></i> Configuración de perfil</a></li>
-              <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Mis locales</a></li>
+              <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Configuración de locales</a></li>
+              <li id="lrLocales"><a href="reporte_locales.php"><i class="fa fa-circle-o"></i> Reporte de locales</a></li>
               ';
             if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
               echo '
