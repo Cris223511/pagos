@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2023 a las 04:42:17
+-- Tiempo de generación: 30-10-2023 a las 19:05:20
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -44,8 +44,7 @@ CREATE TABLE `bancos` (
 INSERT INTO `bancos` (`idbanco`, `idusuario`, `titulo`, `descripcion`, `fecha_hora`, `estado`, `eliminado`) VALUES
 (1, 1, 'banco Interbank', 'Banco de confianza', '2023-09-18 15:53:58', 'activado', 0),
 (2, 1, 'banco de crédito BCP', 'Banco de confianza', '2023-09-18 15:54:43', 'activado', 0),
-(11, 4, 'interbank', '232432', '2023-10-08 17:46:04', 'activado', 0),
-(12, 5, 'adsad', 'asdsadada', '2023-10-12 16:36:29', 'activado', 0);
+(11, 4, 'interbank', 'Banco de confianza', '2023-10-08 17:46:04', 'activado', 0);
 
 -- --------------------------------------------------------
 
@@ -77,8 +76,8 @@ INSERT INTO `locales` (`idlocal`, `idusuario`, `titulo`, `local_ruc`, `descripci
 (8, 5, 'Local de Ate Vitarte, Lima', '34234234234', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-25 10:48:54', 'activado', 0),
 (9, 15, 'Local de Cieneguilla, Lima', '39203486095', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-25 23:56:09', 'activado', 0),
 (25, 0, 'Local de San Miguel, Lima', '34985348795', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-01 22:31:54', 'activado', 0),
-(29, 4, 'adsadsads', '32342342344', 'dsadasdasdsad', '2023-10-08 14:27:42', 'activado', 1),
-(30, 4, 'Local de SJM, Lima', '99956756761', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-08 23:14:57', 'activado', 0);
+(30, 4, 'Local de SJM, Lima', '99956756761', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-08 23:14:57', 'activado', 0),
+(32, 0, 'asdasdasd', '23423423432', 'assadsdaasd', '2023-10-29 23:15:11', 'activado', 0);
 
 -- --------------------------------------------------------
 
@@ -103,9 +102,7 @@ CREATE TABLE `operaciones` (
 INSERT INTO `operaciones` (`idoperacion`, `idusuario`, `titulo`, `descripcion`, `fecha_hora`, `estado`, `eliminado`) VALUES
 (1, 1, 'Transferencia', 'Se hace la transferencia que hará llegada al cliente.', '2023-09-18 17:11:49', 'activado', 0),
 (2, 1, 'Préstamo', 'Se hace el préstamo que es de parte del cliente.', '2023-09-18 17:11:49', 'activado', 0),
-(3, 1, 'Pago', 'Se hace el pago que es de parte del cliente.', '2023-09-18 17:11:49', 'activado', 0),
-(8, 4, 'OPERACION 2', 'adsasdasdasd', '2023-10-08 23:08:00', 'activado', 0),
-(9, 5, 'operacion miguel', 'adasdadas', '2023-10-12 17:31:36', 'activado', 0);
+(3, 1, 'Pago', 'Se hace el pago que es de parte del cliente.', '2023-09-18 17:11:49', 'activado', 0);
 
 -- --------------------------------------------------------
 
@@ -158,15 +155,11 @@ CREATE TABLE `tickets` (
 
 INSERT INTO `tickets` (`idticket`, `idusuario`, `idbanco`, `idoperacion`, `idlocal`, `num_ticket`, `num_ope`, `tipo_letra`, `importe`, `comision`, `descripcion`, `fecha_hora`, `estado`) VALUES
 (1, 1, 1, 1, 1, '1800583952', '0008454903', 'hypermarket', 78.60, 45.60, 'Titular: PEREZ CHAPULIN LUIS ALEXANDER\r\n\r\nFecha y hora: 16/06/2023 12:05\r\nNúmero de operación: 00052462\r\nCuenta de origen: Ahorro Soles 220-99851954-0-59\r\nNombre del beneficiario: MEDINA MARIA YANETH\r\nDocumento del beneficiario: DNI, 47012219\r\nMonto a pagar al beneficiario: S/ 100.00\r\nComisión orden de pago: S/ 5.00\r\nMonto total: S/ 105.00', '2023-09-25 12:18:39', 'activado'),
-(2, 1, 11, 3, 2, '1800583953', '3433424232', 'hypermarket', 15400.00, 3400.00, 'Titular: PEREZ CHAPULIN LUIS ALEXANDER\r\n\r\nFecha y hora: 16/06/2023 12:05\r\nNúmero de operación: 00052462\r\nCuenta de origen: Ahorro Soles 220-99851954-0-59\r\nNombre del beneficiario: MEDINA MARIA YANETH\r\nDocumento del beneficiario: DNI, 47012219\r\nMonto a pagar al beneficiario: S/ 100.00\r\nComisión orden de pago: S/ 5.00\r\nMonto total: S/ 105.00', '2023-10-08 19:23:03', 'activado'),
-(20, 5, 12, 9, 6, '1800583954', '3243242433', 'hypermarket', 12123.00, 213233.00, 'asadsadsd', '2023-10-12 17:31:58', 'activado'),
-(21, 4, 11, 8, 30, '1800583955', '3423423454', 'hypermarket', 123123.00, 123123.00, 'Titular: PEREZ CHAPULIN LUIS ALEXANDER\r\nFecha y hora: 16/06/2023 12:05\r\nNúmero de operación: 00052462\r\nCuenta de origen: Ahorro Soles 220-99851954-0-59\r\nNombre del beneficiario: MEDINA MARIA YANETH\r\nDocumento del beneficiario: DNI, 47012219\r\nMonto a pagar al beneficiario: S/ 100.00\r\nComisión orden de pago: S/ 5.00\r\nMonto total: S/ 105.00', '2023-10-15 15:09:16', 'activado'),
-(22, 4, 11, 8, 30, '123', '1231313', 'hypermarket', 123123.00, 123123.00, 'adsads', '2023-10-15 15:11:48', 'activado'),
+(2, 3, 11, 3, 2, '1800583953', '3433424232', 'hypermarket', 15400.00, 3400.00, 'Titular: PEREZ CHAPULIN LUIS ALEXANDER\r\n\r\nFecha y hora: 16/06/2023 12:05\r\nNúmero de operación: 00052462\r\nCuenta de origen: Ahorro Soles 220-99851954-0-59\r\nNombre del beneficiario: MEDINA MARIA YANETH\r\nDocumento del beneficiario: DNI, 47012219\r\nMonto a pagar al beneficiario: S/ 100.00\r\nComisión orden de pago: S/ 5.00\r\nMonto total: S/ 105.00', '2023-10-08 19:23:03', 'activado'),
 (23, 1, 1, 1, 1, '000055453', '2424324', 'hypermarket', 234324.00, 3244.00, 'asdsad', '2023-10-15 15:52:44', 'activado'),
-(24, 1, 1, 1, 1, '134', '123123', 'hypermarket', 24324.00, 234324.00, 'adasdd', '2023-10-15 15:56:17', 'activado'),
-(25, 1, 1, 1, 2, '135', '1232313', 'courier', 123123.00, 123213123.00, 'asdsdasad', '2023-10-25 22:52:33', 'activado'),
-(26, 1, 2, 3, 4, '136', '123213', 'courier', 23213.00, 12213.00, 'asdsadsdsad', '2023-10-25 23:39:05', 'activado'),
-(27, 1, 2, 8, 3, '137', '123', 'courier', 123.00, 123.00, '123123', '2023-10-25 23:40:03', 'activado');
+(24, 2, 1, 1, 1, '134', '123123', 'hypermarket', 24324.00, 234324.00, 'adasdd', '2023-10-15 15:56:17', 'activado'),
+(25, 2, 1, 1, 2, '135', '1232313', 'courier', 123123.00, 123213123.00, 'asdsdasad', '2023-10-25 22:52:33', 'activado'),
+(26, 3, 2, 3, 4, '136', '123213', 'courier', 23213.00, 12213.00, 'asdsadsdsad', '2023-10-25 23:39:05', 'activado');
 
 -- --------------------------------------------------------
 
@@ -363,19 +356,19 @@ ALTER TABLE `usuario_permiso`
 -- AUTO_INCREMENT de la tabla `bancos`
 --
 ALTER TABLE `bancos`
-  MODIFY `idbanco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idbanco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `locales`
 --
 ALTER TABLE `locales`
-  MODIFY `idlocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idlocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `operaciones`
 --
 ALTER TABLE `operaciones`
-  MODIFY `idoperacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idoperacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
