@@ -61,7 +61,7 @@
       });
 
       $(document).ajaxSuccess(function(event, xhr, settings) {
-        if (settings.url.includes("op=listar") || settings.url.includes("op=guardaryeditar") || settings.url.includes("op=desactivar") || settings.url.includes("op=activar") || settings.url.includes("op=eliminar")) {
+        if (settings.url.includes("op=desasignar") ||settings.url.includes("op=listar") || settings.url.includes("op=guardaryeditar") || settings.url.includes("op=desactivar") || settings.url.includes("op=activar") || settings.url.includes("op=eliminar")) {
           $(".modal-footer .btn-primary").removeClass("btn-primary").addClass("btn-bcp");
         }
       });

@@ -72,8 +72,8 @@ if (!isset($_SESSION["nombre"])) {
                       <th>N° Operación</th>
                       <th>Local</th>
                       <th>RUC Local</th>
-                      <th>Importe</th>
-                      <th>Comisión</th>
+                      <th id="importe" class="nowrap-cell">S/. 0.00</th>
+                      <th id="comision" class="nowrap-cell">S/. 0.00</th>
                       <th>Estado</th>
                     </tfoot>
                   </table>

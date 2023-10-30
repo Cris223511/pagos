@@ -76,8 +76,8 @@ if (!isset($_SESSION["nombre"])) {
 						"7" => "N° " . $reg->num_ope,
 						"8" => $reg->local,
 						"9" => "N° " . $reg->local_ruc,
-						"10" => "S/. " . $reg->importe,
-						"11" => "S/. " . $reg->comision,
+						"10" => "S/. " . number_format($reg->importe, 2, '.', ','),
+						"11" => "S/. " . number_format($reg->comision, 2, '.', ','),
 						"12" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'
 					);

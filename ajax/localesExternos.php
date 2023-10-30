@@ -18,9 +18,9 @@ if (!isset($_SESSION["nombre"])) {
 	header("Location: ../vistas/login.html");
 } else {
 	if ($_SESSION['perfilu'] == 1) {
-		require_once "../modelos/Locales.php";
+		require_once "../modelos/LocalesExternos.php";
 
-		$locales = new Local();
+		$locales = new LocalExterno();
 
 		// Variables de sesión a utilizar.
 		$idusuario = $_SESSION["idusuario"];
@@ -64,6 +64,11 @@ if (!isset($_SESSION["nombre"])) {
 				echo $rspta ? "Local activado" : "El local no se pudo activar";
 				break;
 
+			case 'desasignar':
+				$rspta = $locales->desasignar($idlocal);
+				echo $rspta ? "El usuario ha sido desasignado del local correctamente" : "El usuario no se pudo desasignar";
+				break;
+
 			case 'eliminar':
 				$rspta = $locales->eliminar($idlocal);
 				echo $rspta ? "Local eliminado" : "El local no se pudo eliminar";
@@ -76,13 +81,13 @@ if (!isset($_SESSION["nombre"])) {
 
 			case 'listar':
 
-				$rspta = $locales->listarPorUsuario($idusuario);
+				// $rspta = $locales->listarPorUsuario($idusuario);
 
-				// if ($cargo == "superadmin" || $cargo == "admin") {
-				// 	$rspta = $locales->listar();
-				// } else {
-				// 	$rspta = $locales->listarPorUsuario($idusuario);
-				// }
+				if ($cargo == "superadmin" || $cargo == "admin") {
+					$rspta = $locales->listar();
+				} else {
+					$rspta = $locales->listarPorUsuario($idusuario);
+				}
 
 				$data = array();
 
@@ -109,6 +114,7 @@ if (!isset($_SESSION["nombre"])) {
 						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
 							(($reg->estado == 'activado') ?
 								(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
+								(('<button class="btn btn-success" style="margin-right: 3px; height: 35px;" onclick="desasignar(' . $reg->idlocal . ',\'' . $reg->nombre . '\',\'' . $reg->titulo . '\');"><i class="fa fa-times-circle"></i></button>')) .
 								(('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idlocal . ')"><i class="fa fa-close"></i></button>')) .
 								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idlocal . ')"><i class="fa fa-trash"></i></button>')) : (('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idlocal . ')"><i class="fa fa-check"></i></button>')) .

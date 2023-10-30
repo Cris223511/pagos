@@ -36,6 +36,7 @@ $cargo_login = $_SESSION['cargo_detalle'];
   }
 
   .btn-bcp,
+  .btn-primary,
   .btn-danger,
   .btn-warning,
   .btn-info,
@@ -46,6 +47,7 @@ $cargo_login = $_SESSION['cargo_detalle'];
   }
 
   .btn-bcp.focus,
+  .btn-primary.focus,
   .btn-danger.focus,
   .btn-warning.focus,
   .btn-info.focus,
@@ -56,6 +58,7 @@ $cargo_login = $_SESSION['cargo_detalle'];
   }
 
   .btn-bcp:focus,
+  .btn-primary.focus,
   .btn-danger:focus,
   .btn-warning:focus,
   .btn-info:focus,
@@ -286,12 +289,19 @@ $cargo_login = $_SESSION['cargo_detalle'];
             </a>
             <ul class="treeview-menu">
               <li id="lConfUsuario"><a href="confUsuario.php"><i class="fa fa-circle-o"></i> Configuración de perfil</a></li>
-              <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Configuración de locales</a></li>
+              <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Mis locales</a></li>
+              ';
+            if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
+              echo '
+                <li id="lLocalesExternos"><a href="localesExternos.php"><i class="fa fa-circle-o"></i> Locales externos</a></li>
+              ';
+            };
+            echo '
               <li id="lrLocales"><a href="reporte_locales.php"><i class="fa fa-circle-o"></i> Reporte de locales</a></li>
               ';
             if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
               echo '
-              <li id="lLocalesDisponibles"><a href="localesDisponibles.php"><i class="fa fa-circle-o"></i> Locales externos</a></li>
+              <li id="lLocalesDisponibles"><a href="localesDisponibles.php"><i class="fa fa-circle-o"></i> Locales disponibles</a></li>
               ';
             }
             echo '

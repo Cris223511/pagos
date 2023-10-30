@@ -72,14 +72,15 @@ if (!isset($_SESSION["nombre"])) {
                       <th>Opciones</th>
                       <th>Fecha y hora</th>
                       <th>Agregado por</th>
+                      <th>Cargo</th>
                       <th>Banco</th>
                       <th>N° Ticket</th>
                       <th>Operación</th>
                       <th>N° Operación</th>
                       <th>Local</th>
                       <th>RUC Local</th>
-                      <th>Importe</th>
-                      <th>Comisión</th>
+                      <th id="importe" class="nowrap-cell">S/. 0.00</th>
+                      <th id="comision" class="nowrap-cell">S/. 0.00</th>
                       <th>Estado</th>
                     </tfoot>
                   </table>
@@ -97,7 +98,7 @@ if (!isset($_SESSION["nombre"])) {
 
   require 'footer.php';
   ?>
-  <script type="text/javascript" src="scripts/reporte_comisiones1.js"></script>
+  <script type="text/javascript" src="scripts/reporte_comisiones3.js"></script>
 <?php
 }
 ob_end_flush();

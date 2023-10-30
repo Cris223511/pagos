@@ -8,7 +8,7 @@ if (!isset($_SESSION["nombre"])) {
 } else {
   require 'header.php';
 
-  if ($_SESSION['ticket'] == 1) {
+  if ($_SESSION['perfilu'] == 1 && ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin")) {
 ?>
     <div class="content-wrapper">
       <section class="content">
@@ -16,11 +16,11 @@ if (!isset($_SESSION["nombre"])) {
           <div class="col-md-12">
             <div class="box">
               <div class="box-header with-border">
-                <h1 class="box-title">Operaciones
+                <h1 class="box-title">Locales Externos
                   <button class="btn btn-bcp" id="btnagregar" onclick="mostrarform(true)">
                     <i class="fa fa-plus-circle"></i> Agregar
                   </button>
-                  <a href="../reportes/rptoperaciones.php" target="_blank">
+                  <a href="../reportes/rptlocalesexternos.php" target="_blank">
                     <button class="btn btn-secondary" style="color: black !important;">
                       <i class="fa fa-clipboard"></i> Reporte
                     </button>
@@ -33,10 +33,11 @@ if (!isset($_SESSION["nombre"])) {
                 <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important;">
                   <thead>
                     <th>Opciones</th>
-                    <th>Nombre</th>
-                    <th style="width: 40%; min-width: 280px; white-space: nowrap;">Descripción de la operación</th>
-                    <th style="white-space: nowrap;">Agregado por</th>
+                    <th style="white-space: nowrap;">Dueño</th>
                     <th>Cargo</th>
+                    <th>Local</th>
+                    <th style="white-space: nowrap;">N° RUC</th>
+                    <th style="width: 40%; min-width: 280px; white-space: nowrap;">Descripción del local</th>
                     <th style="white-space: nowrap;">Fecha y hora</th>
                     <th>Estado</th>
                   </thead>
@@ -44,10 +45,11 @@ if (!isset($_SESSION["nombre"])) {
                   </tbody>
                   <tfoot>
                     <th>Opciones</th>
-                    <th>Nombre</th>
-                    <th>Descripción de la operación</th>
-                    <th>Agregado por</th>
+                    <th>Dueño</th>
                     <th>Cargo</th>
+                    <th>Local</th>
+                    <th>N° RUC</th>
+                    <th>Descripción del local</th>
                     <th>Fecha y hora</th>
                     <th>Estado</th>
                   </tfoot>
@@ -55,10 +57,14 @@ if (!isset($_SESSION["nombre"])) {
               </div>
               <div class="panel-body" style="height: 400px;" id="formularioregistros">
                 <form name="formulario" id="formulario" method="POST">
-                  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <label>Operación (*):</label>
-                    <input type="hidden" name="idoperacion" id="idoperacion">
-                    <input type="text" class="form-control" name="titulo" id="titulo" maxlength="40" placeholder="Ingrese el nombre de la operación." autocomplete="off" required>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Local(*):</label>
+                    <input type="hidden" name="idlocal" id="idlocal">
+                    <input type="text" class="form-control" name="titulo" id="titulo" maxlength="40" placeholder="Ingrese la ubicación del local." autocomplete="off" required>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>RUC(*):</label>
+                    <input type="number" class="form-control" name="local_ruc" id="local_ruc" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" placeholder="Ingrese el N° de RUC del local." required>
                   </div>
                   <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label>Descripción:</label>
@@ -82,7 +88,7 @@ if (!isset($_SESSION["nombre"])) {
 
   require 'footer.php';
   ?>
-  <script type="text/javascript" src="scripts/operaciones4.js"></script>
+  <script type="text/javascript" src="scripts/localesExternos3.js"></script>
 <?php
 }
 ob_end_flush();

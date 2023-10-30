@@ -33,10 +33,10 @@ if (!isset($_SESSION["nombre"])) {
                 <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important;">
                   <thead>
                     <th>Opciones</th>
-                    <th style="white-space: nowrap;">Agregado por</th>
-                    <th>Cargo</th>
                     <th>Nombre</th>
                     <th style="width: 40%; min-width: 280px; white-space: nowrap;">Descripción del banco</th>
+                    <th style="white-space: nowrap;">Agregado por</th>
+                    <th>Cargo</th>
                     <th style="white-space: nowrap;">Fecha y hora</th>
                     <th>Estado</th>
                   </thead>
@@ -44,10 +44,10 @@ if (!isset($_SESSION["nombre"])) {
                   </tbody>
                   <tfoot>
                     <th>Opciones</th>
-                    <th>Agregado por</th>
-                    <th>Cargo</th>
                     <th>Nombre</th>
                     <th>Descripción del banco</th>
+                    <th>Agregado por</th>
+                    <th>Cargo</th>
                     <th>Fecha y hora</th>
                     <th>Estado</th>
                   </tfoot>

@@ -16,7 +16,7 @@ if (!isset($_SESSION["nombre"])) {
           <div class="col-md-12">
             <div class="box">
               <div class="box-header with-border">
-                <h1 class="box-title">Locales externos <!-- Locales disponibles -->
+                <h1 class="box-title">Locales disponibles <!-- Locales disponibles -->
                   <button class="btn btn-bcp" id="btnagregar" onclick="mostrarform(true)">
                     <i class="fa fa-plus-circle"></i> Agregar
                   </button>
@@ -36,20 +36,20 @@ if (!isset($_SESSION["nombre"])) {
                 <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important;">
                   <thead>
                     <th>Opciones</th>
-                    <th style="white-space: nowrap;">Fecha y hora</th>
                     <th>Local</th>
                     <th style="white-space: nowrap;">N° RUC</th>
                     <th style="width: 40%; min-width: 280px; white-space: nowrap;">Descripción del local</th>
+                    <th style="white-space: nowrap;">Fecha y hora</th>
                     <th>Estado</th>
                   </thead>
                   <tbody>
                   </tbody>
                   <tfoot>
                     <th>Opciones</th>
-                    <th>Fecha y hora</th>
                     <th>Local</th>
                     <th>N° RUC</th>
                     <th>Descripción del local</th>
+                    <th>Fecha y hora</th>
                     <th>Estado</th>
                   </tfoot>
                 </table>

@@ -208,7 +208,7 @@ switch ($_GET["op"]) {
 	case 'selectUsuarios':
 		$idusuarioSession = $_SESSION["idusuario"];
 		$cargoSession = $_SESSION["cargo"];
-		
+
 		if ($cargoSession == "superadmin" || $cargoSession == "admin") {
 			$rspta = $usuario->listarASC();
 		} else {
@@ -217,7 +217,24 @@ switch ($_GET["op"]) {
 
 		echo '<option value="">- Seleccione -</option>';
 		while ($reg = $rspta->fetch_object()) {
-			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre . ' - ' . $reg->cargo . '</option>';
+			$cargo = "";
+			switch ($reg->cargo) {
+				case 'superadmin':
+					$cargo = "Superadministrador";
+					break;
+				case 'admin':
+					$cargo = "Administrador";
+					break;
+				case 'vendedor_impresion':
+					$cargo = "Vendedor impresión";
+					break;
+				case 'vendedor_total':
+					$cargo = "Vendedor control total";
+					break;
+				default:
+					break;
+			}
+			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre . ' - ' . $cargo . '</option>';
 		}
 		break;
 

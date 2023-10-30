@@ -36,8 +36,13 @@ if (!isset($_SESSION["nombre"])) {
 						echo $rspta ? "Banco registrado" : "El banco no se pudo registrar";
 					}
 				} else {
-					$rspta = $bancos->editar($idbanco, $titulo, $descripcion);
-					echo $rspta ? "Banco actualizado" : "El banco no se pudo actualizar";
+					$nombreExiste = $bancos->verificarNombreEditarExiste($titulo, $idbanco);
+					if ($nombreExiste) {
+						echo "El nombre del banco ya existe.";
+					} else {
+						$rspta = $bancos->editar($idbanco, $titulo, $descripcion);
+						echo $rspta ? "Banco actualizado" : "El banco no se pudo actualizar";
+					}
 				}
 				break;
 
@@ -95,14 +100,13 @@ if (!isset($_SESSION["nombre"])) {
 							(($reg->estado == 'activado') ?
 								(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idbanco . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idbanco . ')"><i class="fa fa-close"></i></button>')) .
-								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idbanco . ')"><i class="fa fa-trash"></i></button>')) :
-								(('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idbanco . ')"><i class="fa fa-pencil"></i></button>')) .
+								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idbanco . ')"><i class="fa fa-trash"></i></button>')) : (('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idbanco . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idbanco . ')"><i class="fa fa-check"></i></button>')) .
 								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idbanco . ')"><i class="fa fa-trash"></i></button>'))) . '</div>',
-						"1" => ucwords($reg->nombre),
-						"2" => ucwords($cargo_detalle),
-						"3" => $reg->titulo,
-						"4" => $reg->descripcion,
+						"1" => $reg->titulo,
+						"2" => $reg->descripcion,
+						"3" => ucwords($reg->nombre),
+						"4" => ucwords($cargo_detalle),
 						"5" => $reg->fecha,
 						"6" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'

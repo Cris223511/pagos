@@ -27,6 +27,18 @@ class Banco
 		return false;
 	}
 
+	public function verificarNombreEditarExiste($titulo, $idbanco)
+	{
+		$sql = "SELECT * FROM bancos WHERE titulo = '$titulo' AND idbanco != '$idbanco' AND eliminado = '0'";
+		$resultado = ejecutarConsulta($sql);
+		if (mysqli_num_rows($resultado) > 0) {
+			// El titulo ya existe en la tabla
+			return true;
+		}
+		// El titulo no existe en la tabla
+		return false;
+	}
+
 	public function editar($idbanco, $titulo, $descripcion)
 	{
 		$sql = "UPDATE bancos SET titulo='$titulo',descripcion='$descripcion' WHERE idbanco='$idbanco'";

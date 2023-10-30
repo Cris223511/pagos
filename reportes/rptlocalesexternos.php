@@ -37,13 +37,11 @@ if (!isset($_SESSION["nombre"])) {
     $idusuario = $_SESSION["idusuario"];
     $cargo = $_SESSION["cargo"];
 
-    $rspta = $locales->listarPorUsuario($idusuario);
-
-    // if ($cargo == "superadmin" || $cargo == "admin") {
-    //   $rspta = $locales->listar();
-    // } else {
-    //   $rspta = $locales->listarPorUsuario($idusuario);
-    // }
+    if ($cargo == "superadmin" || $cargo == "admin") {
+      $rspta = $locales->listar();
+    } else {
+      $rspta = $locales->listarPorUsuario($idusuario);
+    }
 
     $pdf->SetWidths(array(45, 25, 80, 40));
 
