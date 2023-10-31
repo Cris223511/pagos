@@ -301,7 +301,7 @@ $cargo_login = $_SESSION['cargo_detalle'];
               ';
             if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
               echo '
-              <li id="lLocalesDisponibles"><a href="localesDisponibles.php"><i class="fa fa-circle-o"></i> Locales disponibles</a></li>
+              <li id="lLocalesDisponibles"><a href="localesDisponibles.php"><i class="fa fa-circle-o"></i> Crear locales disponibles</a></li>
               ';
             }
             echo '

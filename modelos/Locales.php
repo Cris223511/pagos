@@ -39,6 +39,18 @@ class Local
 		return false;
 	}
 
+	public function verificarRucExiste($local_ruc, $idusuario)
+	{
+		$sql = "SELECT * FROM locales WHERE local_ruc = '$local_ruc' AND idusuario != '$idusuario'";
+		$resultado = ejecutarConsulta($sql);
+		if (mysqli_num_rows($resultado) > 0) {
+			// El titulo ya existe en la tabla
+			return true;
+		}
+		// El titulo no existe en la tabla
+		return false;
+	}
+
 	public function editar($idlocal, $titulo, $local_ruc, $descripcion)
 	{
 		$sql = "UPDATE locales SET titulo='$titulo',local_ruc='$local_ruc',descripcion='$descripcion' WHERE idlocal='$idlocal'";

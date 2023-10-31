@@ -37,8 +37,12 @@ if (!isset($_SESSION["nombre"])) {
 			case 'guardaryeditar':
 				if (empty($idlocal)) {
 					$nombreExiste = $locales->verificarNombreExiste($titulo);
+					$rucExiste = $locales->verificarRucExiste($local_ruc, $idusuario);
+
 					if ($nombreExiste) {
 						echo "El nombre del local ya existe.";
+					} else if ($rucExiste) {
+						echo "El RUC ya le pertenece a otra persona.";
 					} else {
 						$rspta = $locales->agregar($idusuario, $titulo, $local_ruc, $descripcion);
 						echo $rspta ? "Local registrado" : "El local no se pudo registrar";

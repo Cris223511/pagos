@@ -88,7 +88,7 @@ if (!isset($_SESSION["nombre"])) {
 
   require 'footer.php';
   ?>
-  <script type="text/javascript" src="scripts/locales14.js"></script>
+  <script type="text/javascript" src="scripts/locales15.js"></script>
 <?php
 }
 ob_end_flush();

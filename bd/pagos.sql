@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2023 a las 19:05:20
+-- Tiempo de generación: 31-10-2023 a las 18:03:17
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -77,7 +77,11 @@ INSERT INTO `locales` (`idlocal`, `idusuario`, `titulo`, `local_ruc`, `descripci
 (9, 15, 'Local de Cieneguilla, Lima', '39203486095', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-09-25 23:56:09', 'activado', 0),
 (25, 0, 'Local de San Miguel, Lima', '34985348795', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-01 22:31:54', 'activado', 0),
 (30, 4, 'Local de SJM, Lima', '99956756761', 'un local donde se almacenará productos, listo para ser comercializados en el mercado.', '2023-10-08 23:14:57', 'activado', 0),
-(32, 0, 'asdasdasd', '23423423432', 'assadsdaasd', '2023-10-29 23:15:11', 'activado', 0);
+(32, 0, 'asdasdasd', '23423423432', 'assadsdaasd', '2023-10-29 23:15:11', 'activado', 0),
+(35, 1, 'asdasdasdasdasdasdsdaasdsadsa', '48596631120', 'asdasdasddas', '2023-10-31 11:55:50', 'activado', 0),
+(36, 1, 'dassdaasdawe12', '48596631120', 'asdasdawdawd', '2023-10-31 11:56:05', 'activado', 0),
+(37, 2, 'asdasdasdas', '48596631122', 'asddasadsd', '2023-10-31 11:56:28', 'activado', 0),
+(38, 2, '4234dasda3eaw', '12342445353', 'asdasdsad', '2023-10-31 11:56:51', 'activado', 0);
 
 -- --------------------------------------------------------
 
@@ -362,7 +366,7 @@ ALTER TABLE `bancos`
 -- AUTO_INCREMENT de la tabla `locales`
 --
 ALTER TABLE `locales`
-  MODIFY `idlocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `idlocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `operaciones`

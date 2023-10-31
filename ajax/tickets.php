@@ -168,11 +168,7 @@ if (!isset($_SESSION["nombre"])) {
 				/* ======================= SELECTS ======================= */
 
 			case 'listarTodosActivos':
-				if ($cargo == "superadmin" || $cargo == "admin") {
-					$rspta = $tickets->listarTodosActivos();
-				} else {
-					$rspta = $tickets->listarTodosActivosPorUsuario($idusuario);
-				}
+				$rspta = $tickets->listarTodosActivosPorUsuario($idusuario);
 
 				$result = mysqli_fetch_all($rspta, MYSQLI_ASSOC);
 

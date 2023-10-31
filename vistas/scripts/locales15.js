@@ -97,7 +97,7 @@ function guardaryeditar(e) {
 		processData: false,
 
 		success: function (datos) {
-			if (datos == "El nombre del local ya existe.") {
+			if (datos == "El nombre del local ya existe." || datos == "El RUC ya le pertenece a otra persona.") {
 				bootbox.alert(datos);
 				$("#btnGuardar").prop("disabled", false);
 				return;
