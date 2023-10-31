@@ -117,6 +117,7 @@ if (!isset($_SESSION["nombre"])) {
 							"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
 								(('<button class="btn btn-primary" style="margin-right: 3px; width: 35px; height: 35px;" onclick="imprimirPDF(' . $reg->idticket . ')"><i style="margin-left: -2px" class="fa fa-print"></i></button>')) .
 								(('<button class="btn btn-danger" style="margin-right: 3px; width: 35px; height: 35px;" onclick="eliminar(' . $reg->idticket . ')"><i class="fa fa-trash"></i></button>')) .
+								(('<a href="../reportes/exTicket.php?id=' . $reg->idticket . '" target="_blank"><button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;"><i class="fa fa-file"></i></button></a>')) .
 								(('<button class="btn btn-info" style="margin-right: 3px; width: 35px; height: 35px;" onclick="visualizar(' . $reg->idticket . ')"><i style="margin-left: -1px" class="fa fa-sign-in"></i></button>')) .
 								(('<button class="btn btn-warning" style="margin-right: 3px; width: 35px; height: 35px;" onclick="mostrar(' . $reg->idticket . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-bcp" style="width: 35px; height: 35px;" onclick="detalles(' . $reg->idticket . ')"><i style="margin-left: -1px" class="fa fa-eye"></i></button>')) . '</div>',

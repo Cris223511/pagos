@@ -18,7 +18,8 @@ $reg = $rspta->fetch_object();
 require('ticket/code128.php');
 
 # Modificando el ancho y alto del ticket #
-$pdf = new PDF_Code128('P', 'mm', array(75, 90));
+// $pdf = new PDF_Code128('P', 'mm', array(70, 95));
+$pdf = new PDF_Code128('P', 'mm', array(58, 95));
 $pdf->SetAutoPageBreak(false);
 $pdf->SetMargins(4, 10, 4);
 $pdf->AddPage();
@@ -38,7 +39,7 @@ $pdf->encabezado(
 # Separador #
 $pdf->Ln(3);
 $pdf->SetX(1.5);
-$pdf->Cell(0, -5, utf8_decode("---------------------------------------------------"), 0, 0, 'L');
+$pdf->Cell(0, -5, utf8_decode("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"), 0, 0, 'L');
 
 # Cuerpo y datos del ticket #
 $pdf->cuerpo(
@@ -50,7 +51,7 @@ $pdf->cuerpo(
 # Separador #
 $pdf->Ln(4);
 $pdf->SetX(1.5);
-$pdf->Cell(0, -5, utf8_decode("---------------------------------------------------"), 0, 0, 'L');
+$pdf->Cell(0, -5, utf8_decode("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"), 0, 0, 'L');
 
 # Pie y datos del ticket #
 $pdf->pie();
