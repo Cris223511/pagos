@@ -314,6 +314,7 @@ switch ($_GET["op"]) {
 			in_array(4, $valores) ? $_SESSION['ticket'] = 1 : $_SESSION['ticket'] = 0;
 			in_array(5, $valores) ? $_SESSION['rPagos'] = 1 : $_SESSION['rPagos'] = 0;
 			in_array(6, $valores) ? $_SESSION['rComisiones'] = 1 : $_SESSION['rComisiones'] = 0;
+			in_array(7, $valores) ? $_SESSION['conversaciones'] = 1 : $_SESSION['conversaciones'] = 0;
 		}
 		echo json_encode($fetch);
 		break;

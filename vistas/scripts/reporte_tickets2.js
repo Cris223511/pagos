@@ -42,8 +42,8 @@ function calcularTotales() {
 
 	table.rows().every(function () {
 		let rowData = this.data();
-		let importeValue = parseFloat(rowData[10].replace('S/. ', '').replace(',', ''));
-		let comisionesValue = parseFloat(rowData[11].replace('S/. ', '').replace(',', ''));
+		let importeValue = parseFloat(rowData[10].replaceAll('S/. ', '').replaceAll(',', ''));
+		let comisionesValue = parseFloat(rowData[11].replaceAll('S/. ', '').replaceAll(',', ''));
 
 		console.log(importeValue);
 		console.log(comisionesValue);

@@ -91,7 +91,7 @@ if (!isset($_SESSION["nombre"])) {
 
   require 'footer.php';
   ?>
-  <script type="text/javascript" src="scripts/reporte_tickets1.js"></script>
+  <script type="text/javascript" src="scripts/reporte_tickets2.js"></script>
 <?php
 }
 ob_end_flush();

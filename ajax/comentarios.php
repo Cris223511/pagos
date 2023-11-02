@@ -1,0 +1,110 @@
+<?php
+ob_start();
+if (strlen(session_id()) < 1) {
+	session_start(); //Validamos si existe o no la sesión
+}
+
+if (empty($_SESSION['idusuario']) || empty($_SESSION['cargo'])) {
+	echo 'No está autorizado para realizar esta acción.';
+	exit();
+}
+
+if (!isset($_SESSION["nombre"])) {
+	header("Location: ../vistas/login.html");
+} else {
+	if ($_SESSION['conversaciones'] == 1) {
+		require_once "../modelos/Comentarios.php";
+
+		$comentarios = new Comentario();
+
+		$idconversacion = isset($_POST["idconversacion"]) ? limpiarCadena($_POST["idconversacion"]) : "";
+		$emisor = isset($_POST["emisor"]) ? limpiarCadena($_POST["emisor"]) : "";
+		$receptor = isset($_POST["receptor"]) ? limpiarCadena($_POST["receptor"]) : "";
+		$asunto = isset($_POST["asunto"]) ? limpiarCadena($_POST["asunto"]) : "";
+		$mensaje = isset($_POST["mensaje"]) ? limpiarCadena($_POST["mensaje"]) : "";
+
+		// Variables de sesión a utilizar.
+		$idusuario = $_SESSION["idusuario"];
+		$cargo = $_SESSION["cargo"];
+
+		switch ($_GET["op"]) {
+			case 'guardaryeditar':
+				if (empty($idconversacion)) {
+					$rspta = $comentarios->agregar($emisor, $receptor, $asunto, $mensaje);
+					echo $rspta ? "Operación registrada" : "La operación no se pudo registrar";
+				} else {
+					$rspta = $comentarios->editar($idconversacion, $emisor, $receptor, $asunto, $mensaje);
+					echo $rspta ? "Operación actualizada" : "La operación no se pudo actualizar";
+				}
+				break;
+
+			case 'eliminar':
+				$rspta = $comentarios->eliminar($idconversacion);
+				echo $rspta ? "Operación eliminado" : "La operación no se pudo eliminar";
+				break;
+
+			case 'mostrar':
+				$rspta = $comentarios->mostrar($idconversacion);
+				echo json_encode($rspta);
+				break;
+
+			case 'listar':
+
+				$rspta = $comentarios->listarPorUsuario($idusuario);
+
+				$data = array();
+
+				while ($reg = $rspta->fetch_object()) {
+					$data[] = array(
+						"0" => '<div style="display: flex; justify-content: center">' .
+							(('<button class="btn btn-bcp" style="height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-eye"></i></button>')) . '</div>',
+						"1" => $reg->emisor,
+						"2" => $reg->receptor,
+						"3" => $reg->asunto,
+						"4" => $reg->mensaje,
+						"5" => $reg->fecha,
+					);
+				}
+				$results = array(
+					"sEcho" => 1,
+					"iTotalRecords" => count($data),
+					"iTotalDisplayRecords" => count($data),
+					"aaData" => $data
+				);
+
+				echo json_encode($results);
+				break;
+
+			case 'listar2':
+
+				$rspta = $comentarios->listar();
+
+				$data = array();
+
+				while ($reg = $rspta->fetch_object()) {
+					$data[] = array(
+						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
+							(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-pencil"></i></button>')) .
+							(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idconversacion . ')"><i class="fa fa-trash"></i></button>')) . '</div>',
+						"1" => $reg->emisor,
+						"2" => $reg->receptor,
+						"3" => $reg->asunto,
+						"4" => $reg->mensaje,
+						"5" => $reg->fecha,
+					);
+				}
+				$results = array(
+					"sEcho" => 1,
+					"iTotalRecords" => count($data),
+					"iTotalDisplayRecords" => count($data),
+					"aaData" => $data
+				);
+
+				echo json_encode($results);
+				break;
+		}
+	} else {
+		require 'noacceso.php';
+	}
+}
+ob_end_flush();

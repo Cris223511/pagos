@@ -235,6 +235,27 @@ $cargo_login = $_SESSION['cargo_detalle'];
           ?>
 
           <?php
+          if ($_SESSION['conversaciones'] == 1) {
+            echo '<li id="mConversacion" class="treeview">
+              <a href="#">
+                <i class="fa fa-commenting"></i> <span>Conversaciones</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li id="lComentarios"><a href="comentarios.php"><i class="fa fa-circle-o"></i> Comentarios</a></li>
+                ';
+            if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
+              echo '
+              <li id="lAsignarComentarios"><a href="asignarComentario.php"><i class="fa fa-circle-o"></i> Asignar comentarios</a></li>
+              ';
+            }
+            echo '
+              </ul>
+            </li>';
+          }
+          ?>
+
+          <?php
           if ($_SESSION['rPagos'] == 1 && $_SESSION['cargo'] != 'vendedor_impresion') {
             echo '<li id="mrPagos" class="treeview">
               <a href="#">

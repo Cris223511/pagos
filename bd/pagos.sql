@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2023 a las 18:03:17
+-- Tiempo de generación: 02-11-2023 a las 03:45:15
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -44,7 +44,31 @@ CREATE TABLE `bancos` (
 INSERT INTO `bancos` (`idbanco`, `idusuario`, `titulo`, `descripcion`, `fecha_hora`, `estado`, `eliminado`) VALUES
 (1, 1, 'banco Interbank', 'Banco de confianza', '2023-09-18 15:53:58', 'activado', 0),
 (2, 1, 'banco de crédito BCP', 'Banco de confianza', '2023-09-18 15:54:43', 'activado', 0),
-(11, 4, 'interbank', 'Banco de confianza', '2023-10-08 17:46:04', 'activado', 0);
+(11, 4, 'interbank', 'Banco de confianza', '2023-10-08 17:46:04', 'activado', 0),
+(14, 15, 'banco jorge', 'asawdawdawsd', '2023-11-01 11:33:15', 'activado', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `conversaciones`
+--
+
+CREATE TABLE `conversaciones` (
+  `idconversacion` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL,
+  `receptor` int(11) NOT NULL,
+  `asunto` varchar(40) NOT NULL,
+  `mensaje` longtext NOT NULL,
+  `fecha_hora` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `conversaciones`
+--
+
+INSERT INTO `conversaciones` (`idconversacion`, `idusuario`, `receptor`, `asunto`, `mensaje`, `fecha_hora`) VALUES
+(2, 3, 2, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-01 12:25:07'),
+(3, 2, 1, 'Comunicado2', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-01 19:00:54');
 
 -- --------------------------------------------------------
 
@@ -81,7 +105,10 @@ INSERT INTO `locales` (`idlocal`, `idusuario`, `titulo`, `local_ruc`, `descripci
 (35, 1, 'asdasdasdasdasdasdsdaasdsadsa', '48596631120', 'asdasdasddas', '2023-10-31 11:55:50', 'activado', 0),
 (36, 1, 'dassdaasdawe12', '48596631120', 'asdasdawdawd', '2023-10-31 11:56:05', 'activado', 0),
 (37, 2, 'asdasdasdas', '48596631122', 'asddasadsd', '2023-10-31 11:56:28', 'activado', 0),
-(38, 2, '4234dasda3eaw', '12342445353', 'asdasdsad', '2023-10-31 11:56:51', 'activado', 0);
+(38, 2, '4234dasda3eaw', '12342445353', 'asdasdsad', '2023-10-31 11:56:51', 'activado', 0),
+(39, 1, 'asddasasdasd', '48596631120', 'asdasda', '2023-10-31 12:10:30', 'activado', 0),
+(40, 0, 'asdasdasdasdsda', '23324324234', 'sadasddasdsa', '2023-11-01 11:06:48', 'activado', 0),
+(41, 0, 'local nuevo', '12334124234', 'asdsasdad', '2023-11-01 11:08:48', 'activado', 0);
 
 -- --------------------------------------------------------
 
@@ -106,7 +133,8 @@ CREATE TABLE `operaciones` (
 INSERT INTO `operaciones` (`idoperacion`, `idusuario`, `titulo`, `descripcion`, `fecha_hora`, `estado`, `eliminado`) VALUES
 (1, 1, 'Transferencia', 'Se hace la transferencia que hará llegada al cliente.', '2023-09-18 17:11:49', 'activado', 0),
 (2, 1, 'Préstamo', 'Se hace el préstamo que es de parte del cliente.', '2023-09-18 17:11:49', 'activado', 0),
-(3, 1, 'Pago', 'Se hace el pago que es de parte del cliente.', '2023-09-18 17:11:49', 'activado', 0);
+(3, 1, 'Pago', 'Se hace el pago que es de parte del cliente.', '2023-09-18 17:11:49', 'activado', 0),
+(13, 15, 'operacion jorge', 'asdadwd', '2023-11-01 11:33:20', 'activado', 0);
 
 -- --------------------------------------------------------
 
@@ -129,7 +157,8 @@ INSERT INTO `permiso` (`idpermiso`, `nombre`) VALUES
 (3, 'Perfil usuario'),
 (4, 'Ticket'),
 (5, 'Reporte Pagos'),
-(6, 'Reporte Comisiones');
+(6, 'Reporte Comisiones'),
+(7, 'Conversaciones');
 
 -- --------------------------------------------------------
 
@@ -162,8 +191,11 @@ INSERT INTO `tickets` (`idticket`, `idusuario`, `idbanco`, `idoperacion`, `idloc
 (2, 3, 11, 3, 2, '1800583953', '3433424232', 'hypermarket', 15400.00, 3400.00, 'Titular: PEREZ CHAPULIN LUIS ALEXANDER\r\n\r\nFecha y hora: 16/06/2023 12:05\r\nNúmero de operación: 00052462\r\nCuenta de origen: Ahorro Soles 220-99851954-0-59\r\nNombre del beneficiario: MEDINA MARIA YANETH\r\nDocumento del beneficiario: DNI, 47012219\r\nMonto a pagar al beneficiario: S/ 100.00\r\nComisión orden de pago: S/ 5.00\r\nMonto total: S/ 105.00', '2023-10-08 19:23:03', 'activado'),
 (23, 1, 1, 1, 1, '000055453', '2424324', 'hypermarket', 234324.00, 3244.00, 'asdsad', '2023-10-15 15:52:44', 'activado'),
 (24, 2, 1, 1, 1, '134', '123123', 'hypermarket', 24324.00, 234324.00, 'adasdd', '2023-10-15 15:56:17', 'activado'),
-(25, 2, 1, 1, 2, '135', '1232313', 'courier', 123123.00, 123213123.00, 'asdsdasad', '2023-10-25 22:52:33', 'activado'),
-(26, 3, 2, 3, 4, '136', '123213', 'courier', 23213.00, 12213.00, 'asdsadsdsad', '2023-10-25 23:39:05', 'activado');
+(25, 2, 1, 1, 1, '135', '1232313', 'courier', 146.00, 146.00, 'asdsdasad', '2023-10-25 22:52:33', 'activado'),
+(26, 3, 2, 3, 4, '136', '123213', 'courier', 23213.00, 12213.00, 'asdsadsdsad', '2023-10-25 23:39:05', 'activado'),
+(28, 1, 1, 2, 1, '137', '21343223', 'courier', 999999999.99, 999999999.99, 'asdasdasdasdasdasdasd kashsadgjkjkhs ahjkasd hjkasd jhkasd hjkasd jkhasd', '2023-11-01 11:19:17', 'activado'),
+(29, 15, 14, 13, 9, '138', '1234232342', 'courier', 150.00, 180.00, 'qwdqddadawd', '2023-11-01 11:33:46', 'activado'),
+(30, 15, 14, 13, 9, '139', '1231232132', 'courier', 999.00, 888.00, 'awdadawdasd', '2023-11-01 11:34:28', 'activado');
 
 -- --------------------------------------------------------
 
@@ -217,28 +249,6 @@ CREATE TABLE `usuario_permiso` (
 --
 
 INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VALUES
-(60, 3, 1),
-(61, 3, 2),
-(62, 3, 3),
-(63, 3, 4),
-(64, 3, 5),
-(65, 3, 6),
-(105, 5, 1),
-(106, 5, 3),
-(107, 5, 4),
-(108, 5, 5),
-(109, 5, 6),
-(110, 4, 1),
-(111, 4, 3),
-(112, 4, 4),
-(113, 4, 5),
-(114, 4, 6),
-(115, 2, 1),
-(116, 2, 2),
-(117, 2, 3),
-(118, 2, 4),
-(119, 2, 5),
-(120, 2, 6),
 (121, 6, 1),
 (122, 6, 3),
 (123, 6, 4),
@@ -285,17 +295,46 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 (164, 13, 6),
 (165, 14, 1),
 (166, 14, 2),
-(167, 1, 1),
-(168, 1, 2),
-(169, 1, 3),
-(170, 1, 4),
-(171, 1, 5),
-(172, 1, 6),
-(179, 15, 2),
-(180, 15, 3),
-(181, 15, 4),
-(182, 15, 5),
-(183, 15, 6);
+(190, 5, 1),
+(191, 5, 3),
+(192, 5, 4),
+(193, 5, 5),
+(194, 5, 6),
+(195, 5, 7),
+(196, 4, 1),
+(197, 4, 3),
+(198, 4, 4),
+(199, 4, 5),
+(200, 4, 6),
+(201, 4, 7),
+(202, 3, 1),
+(203, 3, 2),
+(204, 3, 3),
+(205, 3, 4),
+(206, 3, 5),
+(207, 3, 6),
+(208, 3, 7),
+(209, 2, 1),
+(210, 2, 2),
+(211, 2, 3),
+(212, 2, 4),
+(213, 2, 5),
+(214, 2, 6),
+(215, 2, 7),
+(216, 1, 1),
+(217, 1, 2),
+(218, 1, 3),
+(219, 1, 4),
+(220, 1, 5),
+(221, 1, 6),
+(222, 1, 7),
+(223, 15, 1),
+(224, 15, 2),
+(225, 15, 3),
+(226, 15, 4),
+(227, 15, 5),
+(228, 15, 6),
+(229, 15, 7);
 
 --
 -- Índices para tablas volcadas
@@ -306,6 +345,12 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 --
 ALTER TABLE `bancos`
   ADD PRIMARY KEY (`idbanco`);
+
+--
+-- Indices de la tabla `conversaciones`
+--
+ALTER TABLE `conversaciones`
+  ADD PRIMARY KEY (`idconversacion`);
 
 --
 -- Indices de la tabla `locales`
@@ -360,31 +405,37 @@ ALTER TABLE `usuario_permiso`
 -- AUTO_INCREMENT de la tabla `bancos`
 --
 ALTER TABLE `bancos`
-  MODIFY `idbanco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idbanco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `conversaciones`
+--
+ALTER TABLE `conversaciones`
+  MODIFY `idconversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `locales`
 --
 ALTER TABLE `locales`
-  MODIFY `idlocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `idlocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `operaciones`
 --
 ALTER TABLE `operaciones`
-  MODIFY `idoperacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idoperacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `idpermiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idpermiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `idticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -396,7 +447,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario_permiso`
 --
 ALTER TABLE `usuario_permiso`
-  MODIFY `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
