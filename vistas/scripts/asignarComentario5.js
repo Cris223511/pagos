@@ -1,4 +1,5 @@
 var tabla;
+var idSession;
 
 function init() {
 	mostrarform(false);
@@ -17,11 +18,18 @@ function init() {
 		$('#emisor').selectpicker('refresh');
 		$("#receptor").html(r);
 		$('#receptor').selectpicker('refresh');
+
+		$.post("../ajax/comentarios.php?op=getSessionId", function (r) {
+			console.log(r);
+			idSession = r;
+			$("#emisor").val(idSession);
+			$('#emisor').selectpicker('refresh');
+		})
 	})
 }
 
 function limpiar() {
-	$("#emisor").val(0);
+	$("#emisor").val(idSession);
 	$("#emisor").selectpicker('refresh');
 	$("#receptor").val(0);
 	$("#receptor").selectpicker('refresh');
@@ -92,7 +100,10 @@ function listar() {
 function guardaryeditar(e) {
 	e.preventDefault();
 	$("#btnGuardar").prop("disabled", true);
+
+	$("#emisor").prop("disabled", false);
 	var formData = new FormData($("#formulario")[0]);
+	$("#emisor").prop("disabled", true);
 
 	$.ajax({
 		url: "../ajax/comentarios.php?op=guardaryeditar",
@@ -106,6 +117,30 @@ function guardaryeditar(e) {
 			bootbox.alert(datos);
 			mostrarform(false);
 			tabla.ajax.reload();
+		}
+	});
+}
+
+function enviarTodos() {
+	var emisor = $("#emisor").val();
+	var asunto = $("#asunto").val();
+	var mensaje = $("#mensaje").val();
+
+	console.log(emisor);
+
+	if (asunto === "" || mensaje === "") {
+		bootbox.alert("El asunto y el mensaje son requeridos.");
+		return;
+	}
+
+	bootbox.confirm("¿Estás seguro de enviar el asunto y mensaje a <strong>todos los usuarios</strong>?", function (result) {
+		if (result) {
+			$.post("../ajax/comentarios.php?op=enviarTodos", { emisor: idSession, asunto: asunto, mensaje: mensaje }, function (e) {
+				limpiar();
+				bootbox.alert(e);
+				mostrarform(false);
+				tabla.ajax.reload();
+			});
 		}
 	});
 }

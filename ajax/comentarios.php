@@ -31,16 +31,25 @@ if (!isset($_SESSION["nombre"])) {
 			case 'guardaryeditar':
 				if (empty($idconversacion)) {
 					$rspta = $comentarios->agregar($emisor, $receptor, $asunto, $mensaje);
-					echo $rspta ? "Operación registrada" : "La operación no se pudo registrar";
+					echo $rspta ? "Comentario registrado" : "El comentario no se pudo registrar";
 				} else {
 					$rspta = $comentarios->editar($idconversacion, $emisor, $receptor, $asunto, $mensaje);
-					echo $rspta ? "Operación actualizada" : "La operación no se pudo actualizar";
+					echo $rspta ? "Comentario actualizado" : "El comentario no se pudo actualizar";
 				}
+				break;
+
+			case 'enviarTodos':
+				$rspta = $comentarios->enviarTodos($emisor, $asunto, $mensaje);
+				echo $rspta ? "Comentario registrado" : "El comentario no se pudo registrar";
+				break;
+
+			case 'getSessionId':
+				echo $idusuario;
 				break;
 
 			case 'eliminar':
 				$rspta = $comentarios->eliminar($idconversacion);
-				echo $rspta ? "Operación eliminado" : "La operación no se pudo eliminar";
+				echo $rspta ? "Comentario eliminado" : "El comentario no se pudo eliminar";
 				break;
 
 			case 'mostrar':

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2023 a las 03:45:15
+-- Tiempo de generación: 03-11-2023 a las 04:04:13
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -67,8 +67,12 @@ CREATE TABLE `conversaciones` (
 --
 
 INSERT INTO `conversaciones` (`idconversacion`, `idusuario`, `receptor`, `asunto`, `mensaje`, `fecha_hora`) VALUES
-(2, 3, 2, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-01 12:25:07'),
-(3, 2, 1, 'Comunicado2', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-01 19:00:54');
+(5, 0, 2, 'hola luis', 'administra bien el sistema', '2023-11-02 17:55:29'),
+(17, 2, 1, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-02 18:45:31'),
+(18, 2, 3, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-02 18:45:31'),
+(19, 2, 5, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-02 18:45:31'),
+(20, 2, 15, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-02 18:45:31'),
+(21, 2, 4, 'Comunicado', 'El día 12 de octubre el sistema estará en mantenimiento.', '2023-11-02 18:45:31');
 
 -- --------------------------------------------------------
 
@@ -411,7 +415,7 @@ ALTER TABLE `bancos`
 -- AUTO_INCREMENT de la tabla `conversaciones`
 --
 ALTER TABLE `conversaciones`
-  MODIFY `idconversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idconversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `locales`
