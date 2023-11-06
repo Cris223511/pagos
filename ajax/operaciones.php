@@ -101,7 +101,7 @@ if (!isset($_SESSION["nombre"])) {
 								(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idoperacion . ')"><i class="fa fa-pencil"></i></button>')) .
 								(('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idoperacion . ')"><i class="fa fa-close"></i></button>')) .
 								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idoperacion . ')"><i class="fa fa-trash"></i></button>')) : (('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idoperacion . ')"><i class="fa fa-pencil"></i></button>')) .
-								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idoperacion . ')"><i class="fa fa-check"></i></button>')) .
+								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idoperacion . ')"><i style="margin-left: -2px" class="fa fa-check"></i></button>')) .
 								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idoperacion . ')"><i class="fa fa-trash"></i></button>'))) . '</div>',
 						"1" => $reg->titulo,
 						"2" => $reg->descripcion,
