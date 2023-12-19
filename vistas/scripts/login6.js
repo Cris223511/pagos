@@ -20,3 +20,17 @@ $("#frmAcceso").on('submit', function (e) {
             }
         });
 })
+
+function mostrarClave() {
+    console.log("di click =)");
+    var claveInput = $('#clavea');
+    var ojitoIcon = $('#mostrarClave i');
+
+    if (claveInput.attr('type') === 'password') {
+        claveInput.attr('type', 'text');
+        ojitoIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+    } else {
+        claveInput.attr('type', 'password');
+        ojitoIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+    }
+}

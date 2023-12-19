@@ -28,7 +28,7 @@ if (!isset($_SESSION["nombre"])) {
 		switch ($_GET["op"]) {
 			case 'guardaryeditar':
 				if (empty($idoperacion)) {
-					$nombreExiste = $operaciones->verificarNombreExiste($titulo);
+					$nombreExiste = $operaciones->verificarNombreExiste($titulo, $idusuario);
 					if ($nombreExiste) {
 						echo "El nombre de la operación ya existe.";
 					} else {
@@ -36,7 +36,7 @@ if (!isset($_SESSION["nombre"])) {
 						echo $rspta ? "Operación registrada" : "La operación no se pudo registrar";
 					}
 				} else {
-					$nombreExiste = $operaciones->verificarNombreEditarExiste($titulo, $idoperacion);
+					$nombreExiste = $operaciones->verificarNombreEditarExiste($titulo, $idoperacion, $idusuario);
 					if ($nombreExiste) {
 						echo "El nombre de la operación ya existe.";
 					} else {
@@ -68,13 +68,24 @@ if (!isset($_SESSION["nombre"])) {
 
 			case 'listar':
 
-				if ($cargo == "superadmin" || $cargo == "admin") {
+				if ($cargo == "superadmin") {
 					$rspta = $operaciones->listar();
 				} else {
 					$rspta = $operaciones->listarPorUsuario($idusuario);
 				}
 
 				$data = array();
+
+				function mostrarBoton($reg, $cargo, $idusuario, $buttonType)
+				{
+					if ($reg == "admin" && $cargo == "admin" && $idusuario == $_SESSION["idusuario"]) {
+						return $buttonType;
+					} elseif ($cargo == "superadmin" || $cargo == "cajero" && $idusuario == $_SESSION["idusuario"]) {
+						return $buttonType;
+					} else {
+						return '';
+					}
+				}
 
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
@@ -93,16 +104,17 @@ if (!isset($_SESSION["nombre"])) {
 						default:
 							break;
 					}
+
 					$reg->descripcion = (strlen($reg->descripcion) > 70) ? substr($reg->descripcion, 0, 70) . "..." : $reg->descripcion;
 
 					$data[] = array(
 						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
+							mostrarBoton($reg->cargo, $cargo, $reg->idusuario, '<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idoperacion . ')"><i class="fa fa-pencil"></i></button>') .
 							(($reg->estado == 'activado') ?
-								(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idoperacion . ')"><i class="fa fa-pencil"></i></button>')) .
-								(('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idoperacion . ')"><i class="fa fa-close"></i></button>')) .
-								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idoperacion . ')"><i class="fa fa-trash"></i></button>')) : (('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idoperacion . ')"><i class="fa fa-pencil"></i></button>')) .
-								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idoperacion . ')"><i style="margin-left: -2px" class="fa fa-check"></i></button>')) .
-								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idoperacion . ')"><i class="fa fa-trash"></i></button>'))) . '</div>',
+								(mostrarBoton($reg->cargo, $cargo, $reg->idusuario, '<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idoperacion . ')"><i class="fa fa-close"></i></button>')) :
+								(mostrarBoton($reg->cargo, $cargo, $reg->idusuario, '<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idoperacion . ')"><i style="margin-left: -2px" class="fa fa-check"></i></button>'))) .
+							mostrarBoton($reg->cargo, $cargo, $reg->idusuario, '<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idoperacion . ')"><i class="fa fa-trash"></i></button>') .
+							'</div>',
 						"1" => $reg->titulo,
 						"2" => $reg->descripcion,
 						"3" => ucwords($reg->nombre),

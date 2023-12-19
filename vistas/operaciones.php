@@ -16,7 +16,7 @@ if (!isset($_SESSION["nombre"])) {
           <div class="col-md-12">
             <div class="box">
               <div class="box-header with-border">
-                <h1 class="box-title">Operaciones
+                <h1 class="box-title">Mis operaciones
                   <button class="btn btn-bcp" id="btnagregar" onclick="mostrarform(true)">
                     <i class="fa fa-plus-circle"></i> Agregar
                   </button>
@@ -53,7 +53,7 @@ if (!isset($_SESSION["nombre"])) {
                   </tfoot>
                 </table>
               </div>
-              <div class="panel-body" style="height: 400px;" id="formularioregistros">
+              <div class="panel-body" style="height: max-content;" id="formularioregistros">
                 <form name="formulario" id="formulario" method="POST">
                   <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label>Operación (*):</label>

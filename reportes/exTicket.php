@@ -19,7 +19,7 @@ require('ticket/code128.php');
 
 # Modificando el ancho y alto del ticket #
 // $pdf = new PDF_Code128('P', 'mm', array(70, 95));
-$pdf = new PDF_Code128('P', 'mm', array(70, 100));
+$pdf = new PDF_Code128('P', 'mm', array(70, 140));
 $pdf->SetAutoPageBreak(false);
 $pdf->SetMargins(4, 10, 4);
 $pdf->AddPage();
@@ -41,11 +41,14 @@ $pdf->Ln(3);
 $pdf->SetX(1.5);
 $pdf->Cell(0, -5, utf8_decode("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"), 0, 0, 'L');
 
+$total = $reg->importe + $reg->comision;
+
 # Cuerpo y datos del ticket #
 $pdf->cuerpo(
     $reg->descripcion,
     $reg->importe,
     $reg->comision,
+    $total
 );
 
 # Separador #

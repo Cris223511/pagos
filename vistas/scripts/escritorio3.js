@@ -56,7 +56,7 @@ function buscarPorFecha() {
     $("#resetear").prop("disabled", true);
 
     $.get("../ajax/escritorio.php?op=listar", { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin }, function (num) {
-        // console.log(num);
+        console.log(num);
         num = JSON.parse(num);
         console.log(num);
 

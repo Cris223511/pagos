@@ -31,11 +31,16 @@ function init() {
 	listar();
 
 	$("#visorPDF").hide();
-
+	$("#visorPDF2").hide();
 	$("#visualizar").hide();
+	$(".part3").hide();
 
 	$('#mTicket').addClass("treeview active");
 	$('#lTicket').addClass("active");
+
+	$("#formulario").on("submit", function (e) {
+		guardaryeditar(e);
+	});
 
 	$.post("../ajax/tickets.php?op=listarTodosActivos", function (data) {
 		// console.log(data)
@@ -92,6 +97,15 @@ function actualizarRUC() {
 	} else {
 		localRUCInput.value = "";
 	}
+}
+
+function verificarTexto() {
+	var descripcionTextArea = document.getElementById('descripcion');
+	var texto = descripcionTextArea.value;
+
+	texto = texto.replace(/\n{2,}/g, '\n');
+
+	descripcionTextArea.value = texto;
 }
 
 function limpiar() {
@@ -176,8 +190,7 @@ function listar() {
 
 function guardaryeditar(e) {
 	e.preventDefault();
-	console.log(e.target.id);
-	if (e.target.id === "btnGuardar") {
+	if ($("#btnGuardar").length > 0) {
 		event1();
 	} else {
 		event2();
@@ -188,6 +201,12 @@ function visualizar(idticket) {
 	$(".no_data").hide();
 	$("#visorPDF").show();
 	$('#visorPDF').attr("data", "../reportes/exTicket.php?id=" + idticket);
+}
+
+function visualizar2(idticket) {
+	$(".part3").show();
+	$("#visorPDF2").show();
+	$('#visorPDF2').attr("data", "../reportes/exTicket.php?id=" + idticket);
 }
 
 function imprimirPDF(pdfURL) {
@@ -214,6 +233,14 @@ function imprimirPDF(pdfURL) {
 // }
 
 function event1() {
+	var importe = parseFloat($("#importe").val());
+	var comision = parseFloat($("#comision").val());
+
+	if (comision > importe) {
+		bootbox.alert("La comisión no puede ser mayor que el importe.");
+		return;
+	}
+
 	$("#btnGuardar").prop("disabled", true);
 	var formData = new FormData($("#formulario")[0]);
 
@@ -240,9 +267,17 @@ function event1() {
 }
 
 function event2() {
+	var importe = parseFloat($("#importe").val());
+	var comision = parseFloat($("#comision").val());
+
+	if (comision > importe) {
+		bootbox.alert("La comisión no puede ser mayor que el importe.");
+		return;
+	}
+
 	$("#btnGuardar2").prop("disabled", true);
 	var formData = new FormData($("#formulario")[0]);
-	console.log("hago el guardar2 =)");
+
 	$.ajax({
 		url: "../ajax/tickets.php?op=guardaryeditar2",
 		type: "POST",
@@ -264,14 +299,19 @@ function event2() {
 			if (response.rpta === "Ticket registrado" && response.idticket) {
 				$("#btnGuardar2").prop("disabled", false);
 				$("#visualizar").show();
-				$("#visualizar").attr("href", "");
-				$("#visualizar").attr("href", "../reportes/exTicket.php?id=" + response.idticket);
+				$("#visualizar").attr("onclick", "visualizar2(" + response.idticket + ")");
+
+				// $("#btnGuardar2").prop("disabled", false);
+				// $("#visualizar").show();
+				// $("#visualizar").attr("href", "");
+				// $("#visualizar").attr("href", "../reportes/exTicket.php?id=" + response.idticket);
 			} else {
 				$("#visualizar").hide();
 			}
 
 			limpiar();
 			actualizarCorrelativo();
+			$("#num_ope").focus();
 		}
 	}
 	);

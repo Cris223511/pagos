@@ -15,9 +15,9 @@ class Banco
 		return ejecutarConsulta($sql);
 	}
 
-	public function verificarNombreExiste($titulo)
+	public function verificarNombreExiste($titulo, $idusuario)
 	{
-		$sql = "SELECT * FROM bancos WHERE titulo = '$titulo' AND eliminado = '0'";
+		$sql = "SELECT * FROM bancos WHERE titulo = '$titulo' AND idusuario = '$idusuario' AND eliminado = '0'";
 		$resultado = ejecutarConsulta($sql);
 		if (mysqli_num_rows($resultado) > 0) {
 			// El titulo ya existe en la tabla
@@ -27,9 +27,9 @@ class Banco
 		return false;
 	}
 
-	public function verificarNombreEditarExiste($titulo, $idbanco)
+	public function verificarNombreEditarExiste($titulo, $idbanco, $idusuario)
 	{
-		$sql = "SELECT * FROM bancos WHERE titulo = '$titulo' AND idbanco != '$idbanco' AND eliminado = '0'";
+		$sql = "SELECT * FROM bancos WHERE titulo = '$titulo' AND idbanco != '$idbanco' AND idusuario = '$idusuario' AND eliminado = '0'";
 		$resultado = ejecutarConsulta($sql);
 		if (mysqli_num_rows($resultado) > 0) {
 			// El titulo ya existe en la tabla

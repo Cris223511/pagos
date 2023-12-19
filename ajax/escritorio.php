@@ -33,7 +33,7 @@ if (!isset($_SESSION["nombre"])) {
                     } else {
                         $rspta = $escritorio->calcularTotalTicketsPorFecha($fecha_inicio, $fecha_fin);
                     }
-                } elseif ($cargo == "vendedor_total") {
+                } elseif ($cargo == "vendedor_total" || $cargo == "vendedor_impresion") {
                     if ($fecha_inicio == "" && $fecha_fin == "") {
                         $rspta = $escritorio->calcularTotalTicketsPorUsuario($idusuario);
                     } else {

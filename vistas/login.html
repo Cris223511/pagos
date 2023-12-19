@@ -17,6 +17,44 @@
   <link rel="stylesheet" href="../public/css/blue.css">
 </head>
 
+<style>
+  .btn-bcp {
+    transition: .3s ease all;
+    border: 0px !important;
+  }
+
+  .btn-bcp.focus {
+    color: white !important;
+    text-decoration: none;
+  }
+
+  .btn-bcp:focus {
+    color: white !important;
+    text-decoration: none;
+  }
+
+  .btn-bcp {
+    background-color: #3e79fd !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    transition: .3s ease all;
+    color: white;
+  }
+
+  .btn-bcp:hover {
+    background-color: #5288ff !important;
+    transition: .3s ease all !important;
+    color: white !important;
+  }
+
+  .btn-bcp.disabled {
+    background-color: #5288ff !important;
+    transition: .3s ease all;
+    opacity: 1 !important;
+  }
+</style>
+
 <body class="hold-transition login-page"
   style="background-image: url(../public/img/fondo_login.png); background-repeat: no-repeat; background-size: cover; background-position: center center;">
   <div class="login-box">
@@ -27,18 +65,26 @@
       <p class="login-box-msg">Ingrese sus datos de Acceso</p>
       <form method="post" id="frmAcceso">
         <div class="form-group has-feedback">
-          <input type="text" id="logina" name="logina" class="form-control" placeholder="Usuario" autocomplete="off" required>
+          <input type="text" id="logina" name="logina" class="form-control" placeholder="Usuario" autocomplete="off"
+            required>
           <span class="fa fa-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" id="clavea" name="clavea" class="form-control" placeholder="Password" autocomplete="off" required>
-          <span class="fa fa-key form-control-feedback"></span>
+          <div style="display: flex;">
+            <input type="password" class="form-control" name="clavea" id="clavea" placeholder="Password">
+            <a onclick="mostrarClave()">
+              <button type="button" id="mostrarClave" class="btn btn-bcp"
+                style="display: flex; align-items: center; height: 35px;">
+                <i class="fa fa-eye"></i>
+              </button>
+            </a>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs-8">
           </div>
           <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+            <button type="submit" class="btn btn-bcp btn-block btn-flat">Ingresar</button>
           </div>
         </div>
       </form>
@@ -51,7 +97,7 @@
   <script src="../public/js/bootstrap.min.js"></script>
   <!-- Bootbox -->
   <script src="../public/js/bootbox.min.js"></script>
-  <script type="text/javascript" src="scripts/login5.js"></script>
+  <script type="text/javascript" src="scripts/login6.js"></script>
 </body>
 
 </html>

@@ -1030,7 +1030,7 @@ class FPDF
 		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("USUARIO: $usuario")), 0, 'L', false);
 	}
 
-	function cuerpo($descripcion, $importe, $comision)
+	function cuerpo($descripcion, $importe, $comision, $total)
 	{
 		# DESCRIPCIÓN #
 		$this->SetXY(1.5, 34);
@@ -1051,6 +1051,12 @@ class FPDF
 		$this->SetFont('roboto-bold', '', 7.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 3.5, utf8_decode(mb_strtoupper("COMISIÓN: S/. $comision")), 0, 'L', false);
+
+		# PAGO TOTAL #
+		$this->SetX(1.5);
+		$this->SetFont('roboto-bold', '', 7.5);
+		$this->SetTextColor(0, 0, 0);
+		$this->MultiCell(0, 3.5, utf8_decode(mb_strtoupper("PAGO TOTAL: S/. $total")), 0, 'L', false);
 	}
 
 	function pie()

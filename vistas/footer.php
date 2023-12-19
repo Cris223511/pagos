@@ -32,6 +32,22 @@
         return palabra.toUpperCase();
       }
 
+      const thElements = document.querySelectorAll("#tbllistado th");
+
+      thElements.forEach((e) => {
+        e.textContent = e.textContent.toUpperCase();
+      });
+
+      const boxTitle = document.querySelectorAll(".box-title");
+
+      boxTitle.forEach((e) => {
+        e.childNodes.forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            node.textContent = node.textContent.toUpperCase();
+          }
+        });
+      });
+
       function changeValue(dropdown) {
         var option = dropdown.options[dropdown.selectedIndex].value;
         var field = $('#num_documento');
@@ -61,7 +77,7 @@
       });
 
       $(document).ajaxSuccess(function(event, xhr, settings) {
-        if (settings.url.includes("op=desasignar") ||settings.url.includes("op=listar") || settings.url.includes("op=guardaryeditar") || settings.url.includes("op=desactivar") || settings.url.includes("op=activar") || settings.url.includes("op=eliminar")) {
+        if (settings.url.includes("op=desasignar") || settings.url.includes("op=listar") || settings.url.includes("op=guardaryeditar") || settings.url.includes("op=desactivar") || settings.url.includes("op=activar") || settings.url.includes("op=eliminar")) {
           $(".modal-footer .btn-primary").removeClass("btn-primary").addClass("btn-bcp");
         }
       });
@@ -70,6 +86,12 @@
         if (e.key === "-")
           e.preventDefault();
       }
+    </script>
+
+    <script>
+      $('.selectpicker').selectpicker({
+        noneResultsText: 'No se encontraron resultados.'
+      });
     </script>
 
     </body>
