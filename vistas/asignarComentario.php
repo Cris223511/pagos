@@ -51,7 +51,7 @@ if (!isset($_SESSION["nombre"])) {
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>De(*):</label>
                     <input type="hidden" name="idconversacion" id="idconversacion">
-                    <select id="emisor" name="emisor" class="form-control selectpicker" data-size="5"  disabled>
+                    <select id="emisor" name="emisor" class="form-control selectpicker" data-size="5">
                       <option value="">- Seleccione -</option>
                     </select>
                   </div>
@@ -72,7 +72,6 @@ if (!isset($_SESSION["nombre"])) {
                   <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <button class="btn btn-warning" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cerrar</button>
                     <button class="btn btn-bcp" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
-                    <button class="btn btn-success" type="button" onclick="enviarTodos()"><i class="fa fa-save"></i> Enviar a todos</button>
                   </div>
                 </form>
               </div>

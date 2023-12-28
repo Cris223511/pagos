@@ -37,13 +37,8 @@ switch ($_GET["op"]) {
 				} else {
 					$ext = explode(".", $_FILES["imagen"]["name"]);
 					if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png") {
-						if (isset($imagen)) {
-							$imagen = round(microtime(true)) . '.' . end($ext);
-							move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/" . $imagen);
-						} else {
-							$imagen = "default.jpg";
-							move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/" . $imagen);
-						}
+						$imagen = round(microtime(true)) . '.' . end($ext);
+						move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/" . $imagen);
 					}
 				}
 
@@ -126,35 +121,38 @@ switch ($_GET["op"]) {
 				$data = array();
 
 				while ($reg = $rspta->fetch_object()) {
-					$cargo = "";
+					$cargo_detalle = "";
+
 					switch ($reg->cargo) {
 						case 'superadmin':
-							$cargo = "Superadministrador";
+							$cargo_detalle = "Superadministrador";
 							break;
 						case 'admin':
-							$cargo = "Administrador";
+							$cargo_detalle = "Administrador";
 							break;
 						case 'vendedor_impresion':
-							$cargo = "Vendedor impresión";
+							$cargo_detalle = "Vendedor impresión";
 							break;
 						case 'vendedor_total':
-							$cargo = "Vendedor total";
+							$cargo_detalle = "Vendedor total";
 							break;
 						default:
 							break;
 					}
 
+					$telefono = ($reg->telefono == '') ? 'Sin registrar' : number_format($reg->telefono, 0, '', ' ');
+
 					$data[] = array(
 						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
 							(!($reg->cargo == "superadmin" && $_SESSION['cargo'] == 'admin') ?
-								((($reg->condicion) ?
+								((($reg->estado) ?
 									(($_SESSION['cargo'] == 'superadmin' || $_SESSION['cargo'] == 'admin') ? ('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idusuario . ')"><i class="fa fa-pencil"></i></button>') : '') .
 									(($_SESSION['cargo'] == 'superadmin' || $_SESSION['cargo'] == 'admin') ? ('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idusuario . ')"><i class="fa fa-close"></i></button>') : '') .
 									(($_SESSION['cargo'] == 'superadmin' || $_SESSION['cargo'] == 'admin') ? ('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idusuario . ')"><i class="fa fa-trash"></i></button>') : '') : (($_SESSION['cargo'] == 'superadmin' || $_SESSION['cargo'] == 'admin') ? ('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idusuario . ')"><i class="fa fa-pencil"></i></button>') : '') .
 									(($_SESSION['cargo'] == 'superadmin' || $_SESSION['cargo'] == 'admin') ? ('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px; padding: 0;" onclick="activar(' . $reg->idusuario . ')"><i style="margin-left: -2px" class="fa fa-check"></i></button>') : '') .
 									(($_SESSION['cargo'] == 'superadmin' || $_SESSION['cargo'] == 'admin') ? ('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idusuario . ')"><i class="fa fa-trash"></i></button>') : '')) . '</div>') : ("")),
 						"1" => $reg->login,
-						"2" => $cargo,
+						"2" => $cargo_detalle,
 						"3" => $reg->nombre,
 						"4" => $reg->tipo_documento,
 						"5" => $reg->num_documento,
@@ -163,7 +161,7 @@ switch ($_GET["op"]) {
 						"8" => $reg->local,
 						"9" => $reg->local_ruc,
 						"10" => "<img src='../files/usuarios/" . $reg->imagen . "' height='50px' width='50px' >",
-						"11" => ($reg->condicion) ? '<span class="label bg-green">Activado</span>' :
+						"11" => ($reg->estado) ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'
 					);
 				}
@@ -184,28 +182,93 @@ switch ($_GET["op"]) {
 		$rspta = $usuario->listarUsuariosActivos();
 
 		while ($reg = $rspta->fetch_object()) {
-			$cargo = "";
+			$cargo_detalle = "";
+
 			switch ($reg->cargo) {
 				case 'superadmin':
-					$cargo = "Superadministrador";
+					$cargo_detalle = "Superadministrador";
 					break;
 				case 'admin':
-					$cargo = "Administrador";
+					$cargo_detalle = "Administrador";
 					break;
 				case 'vendedor_impresion':
-					$cargo = "Vendedor impresión";
+					$cargo_detalle = "Vendedor impresión";
 					break;
 				case 'vendedor_total':
-					$cargo = "Vendedor control total";
+					$cargo_detalle = "Vendedor control total";
 					break;
 				default:
 					break;
 			}
-			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre  . ' - ' . $cargo . '</option>';
+
+			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre  . ' - ' . $cargo_detalle . '</option>';
 		}
 		break;
 
-	case 'selectUsuarios':
+	case 'emisores':
+		$idusuarioSession = $_SESSION["idusuario"];
+		$cargoSession = $_SESSION["cargo"];
+
+		$rspta = $usuario->listarASCactivosUsuario($idusuarioSession);
+
+		echo '<option value="">- Seleccione -</option>';
+		while ($reg = $rspta->fetch_object()) {
+			$cargo_detalle = "";
+
+			switch ($reg->cargo) {
+				case 'superadmin':
+					$cargo_detalle = "Superadministrador";
+					break;
+				case 'admin':
+					$cargo_detalle = "Administrador";
+					break;
+				case 'vendedor_impresion':
+					$cargo_detalle = "Vendedor impresión";
+					break;
+				case 'vendedor_total':
+					$cargo_detalle = "Vendedor control total";
+					break;
+				default:
+					break;
+			}
+
+			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre . ' - ' . $cargo_detalle . '</option>';
+		}
+		break;
+
+	case 'receptores':
+		$idusuarioSession = $_SESSION["idusuario"];
+		$cargoSession = $_SESSION["cargo"];
+
+		$rspta = $usuario->listarASCactivos();
+
+		echo '<option value="">- Seleccione -</option>';
+		echo '<option value="0">Todos</option>';
+		while ($reg = $rspta->fetch_object()) {
+			$cargo_detalle = "";
+
+			switch ($reg->cargo) {
+				case 'superadmin':
+					$cargo_detalle = "Superadministrador";
+					break;
+				case 'admin':
+					$cargo_detalle = "Administrador";
+					break;
+				case 'vendedor_impresion':
+					$cargo_detalle = "Vendedor impresión";
+					break;
+				case 'vendedor_total':
+					$cargo_detalle = "Vendedor control total";
+					break;
+				default:
+					break;
+			}
+
+			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre . ' - ' . $cargo_detalle . '</option>';
+		}
+		break;
+
+	case 'selectUsuario':
 		$idusuarioSession = $_SESSION["idusuario"];
 		$cargoSession = $_SESSION["cargo"];
 
@@ -213,24 +276,26 @@ switch ($_GET["op"]) {
 
 		echo '<option value="">- Seleccione -</option>';
 		while ($reg = $rspta->fetch_object()) {
-			$cargo = "";
+			$cargo_detalle = "";
+
 			switch ($reg->cargo) {
 				case 'superadmin':
-					$cargo = "Superadministrador";
+					$cargo_detalle = "Superadministrador";
 					break;
 				case 'admin':
-					$cargo = "Administrador";
+					$cargo_detalle = "Administrador";
 					break;
 				case 'vendedor_impresion':
-					$cargo = "Vendedor impresión";
+					$cargo_detalle = "Vendedor impresión";
 					break;
 				case 'vendedor_total':
-					$cargo = "Vendedor control total";
+					$cargo_detalle = "Vendedor control total";
 					break;
 				default:
 					break;
 			}
-			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre . ' - ' . $cargo . '</option>';
+
+			echo '<option value="' . $reg->idusuario . '"> ' . $reg->nombre . ' - ' . $cargo_detalle . '</option>';
 		}
 		break;
 
@@ -253,6 +318,15 @@ switch ($_GET["op"]) {
 		}
 		break;
 
+	case 'getSessionId':
+		$sessionIdData = array(
+			'idusuario' => $_SESSION['idusuario'],
+			'idlocal' => $_SESSION['idlocal']
+		);
+
+		echo json_encode($sessionIdData);
+		break;
+
 	case 'verificar':
 		$logina = $_POST['logina'];
 		$clavea = $_POST['clavea'];
@@ -267,7 +341,7 @@ switch ($_GET["op"]) {
 				return;
 			}
 
-			if ($fetch->condicion == "0") {
+			if ($fetch->estado == "0") {
 				echo 0;
 				return;
 			}

@@ -55,8 +55,7 @@ if (!isset($_SESSION["nombre"])) {
                       <th style="white-space: nowrap;">Fecha y hora</th>
                       <th>Local</th>
                       <th style="white-space: nowrap;">RUC Local</th>
-                      <th style="white-space: nowrap;">Dueño</th>
-                      <th>Cargo</th>
+                      <th style="width: 40%; min-width: 280px; white-space: nowrap;">Descripción del local</th>
                       <th>Estado</th>
                     </thead>
                     <tbody>
@@ -65,8 +64,7 @@ if (!isset($_SESSION["nombre"])) {
                       <th>Fecha y hora</th>
                       <th>Local</th>
                       <th>RUC Local</th>
-                      <th>Dueño</th>
-                      <th>Cargo</th>
+                      <th>Descripción</th>
                       <th>Estado</th>
                     </tfoot>
                   </table>

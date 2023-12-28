@@ -6,6 +6,14 @@ function init() {
 
 	$('#mConversacion').addClass("treeview active");
 	$('#lComentarios').addClass("active");
+
+	$.post("../ajax/usuario.php?op=receptores", function (r) {
+		console.log(r);
+		$("#emisor").html(r);
+		$('#emisor').selectpicker('refresh')
+		$("#receptor").html(r);
+		$('#receptor').selectpicker('refresh');
+	})
 }
 
 function limpiar() {
@@ -80,10 +88,13 @@ function mostrar(idconversacion) {
 
 		console.log(data);
 
-		$("#emisor").val(data.emisor);
-		$("#receptor").val(data.receptor);
+		$("#emisor").val(data.emisorID);
+		$("#emisor").selectpicker('refresh');
+		$("#receptor").val(data.receptorID);
+		$("#receptor").selectpicker('refresh');
 		$("#asunto").val(data.asunto);
 		$("#mensaje").val(data.mensaje);
+		$("#idconversacion").val(data.idconversacion);
 	})
 }
 

@@ -30,7 +30,9 @@ if (!isset($_SESSION["nombre"])) {
 
 				if ($fecha_inicio == "" && $fecha_fin == ""  && $local == "") {
 					$rspta = $tickets->listar();
-				} elseif ($local == "") {
+				} elseif ($fecha_inicio != "" && $fecha_fin != "" && $local != "") {
+					$rspta = $tickets->listarPorFechaYlocal($local, $fecha_inicio, $fecha_fin);
+				} elseif ($fecha_inicio != "" && $fecha_fin != "" && $local == "") {
 					$rspta = $tickets->listarPorFecha($fecha_inicio, $fecha_fin);
 				} else {
 					$rspta = $tickets->listarPorLocal($local);
@@ -40,6 +42,7 @@ if (!isset($_SESSION["nombre"])) {
 
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
+					
 					switch ($reg->cargo) {
 						case 'superadmin':
 							$cargo_detalle = "Superadministrador";
@@ -55,13 +58,15 @@ if (!isset($_SESSION["nombre"])) {
 						default:
 							break;
 					}
+
+					$reg->descripcion = (strlen($reg->descripcion) > 70) ? substr($reg->descripcion, 0, 70) . "..." : $reg->descripcion;
+
 					$data[] = array(
 						"0" => $reg->fecha,
 						"1" => $reg->titulo,
-						"2" => "N° " . $reg->local_ruc,
-						"3" => ucwords($reg->nombre),
-						"4" => ucwords($cargo_detalle),
-						"5" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
+						"2" => $reg->local_ruc,
+						"3" => $reg->descripcion,
+						"4" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'
 					);
 				}

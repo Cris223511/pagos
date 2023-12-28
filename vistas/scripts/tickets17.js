@@ -72,7 +72,7 @@ function init() {
 						if (atributo != "local") {
 							select.append('<option value="' + opcion.id + '">' + opcion.titulo + '</option>');
 						} else {
-							select.append('<option value="' + opcion.id + '" data-local-ruc="' + opcion.ruc + '">' + opcion.titulo + ' - ' + opcion.usuario + '</option>');
+							select.append('<option value="' + opcion.id + '" data-local-ruc="' + opcion.ruc + '">' + opcion.titulo + '</option>');
 						}
 					});
 					select.selectpicker('refresh');
@@ -103,13 +103,16 @@ function verificarTexto() {
 	var descripcionTextArea = document.getElementById('descripcion');
 	var texto = descripcionTextArea.value;
 
+	texto = texto.replace(/ {2,}/g, ' ');
 	texto = texto.replace(/\n{2,}/g, '\n');
+	texto = texto.replace(/^(?:\s*\n)+/gm, '');
 
 	descripcionTextArea.value = texto;
 }
 
 function limpiar() {
 	desbloquearCampos();
+	$("#btnGuardar").show();
 
 	$("#idticket").val("");
 	$(':input').not(':button, :submit, :reset, :hidden, #local_ruc')

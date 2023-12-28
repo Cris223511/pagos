@@ -6,8 +6,8 @@ function init() {
 	$('#mPerfilUsuario').addClass("treeview active");
 	$('#lrLocales').addClass("active");
 
-	$.post("../ajax/locales.php?op=selectLocales", function (r) {
-		console.log(r);
+	$.post("../ajax/locales.php?op=selectLocal", function (r) {
+		// console.log(r);
 		$("#idlocal").html(r);
 		$('#idlocal').selectpicker('refresh');
 	})
@@ -41,12 +41,6 @@ function listarVacio() {
 }
 
 function listar() {
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-
-	var fecha_inicio = $("#fecha_inicio").val();
-	var fecha_fin = $("#fecha_fin").val();
-
 	$("#buscarPorLocal").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
@@ -66,7 +60,7 @@ function listar() {
 			"ajax":
 			{
 				url: '../ajax/reporte_locales.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, local: "" },
+				data: { fecha_inicio: "", fecha_fin: "", local: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -112,8 +106,14 @@ function buscarPorFecha() {
 		return;
 	}
 
-	$("#idlocal").val("");
-	$("#idlocal").selectpicker('refresh');
+	var local = $("#idlocal").val();
+	var nombreLocal = "";
+
+	if (local != "") {
+		nombreLocal = $("#idlocal").find("option:selected").text().split(" - ")[0].trim();
+	} else {
+		nombreLocal = "";
+	}
 
 	$("#buscarPorLocal").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
@@ -134,7 +134,7 @@ function buscarPorFecha() {
 			"ajax":
 			{
 				url: '../ajax/reporte_locales.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, local: "" },
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, local: nombreLocal },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -232,10 +232,6 @@ function buscarPorLocal() {
 
 function buscarTodos() {
 	listar();
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-	$("#idlocal").val("");
-	$("#idlocal").selectpicker('refresh');
 }
 
 function resetear() {

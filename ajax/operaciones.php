@@ -28,7 +28,7 @@ if (!isset($_SESSION["nombre"])) {
 		switch ($_GET["op"]) {
 			case 'guardaryeditar':
 				if (empty($idoperacion)) {
-					$nombreExiste = $operaciones->verificarNombreExiste($titulo, $idusuario);
+					$nombreExiste = $operaciones->verificarNombreExiste($titulo);
 					if ($nombreExiste) {
 						echo "El nombre de la operación ya existe.";
 					} else {
@@ -36,7 +36,7 @@ if (!isset($_SESSION["nombre"])) {
 						echo $rspta ? "Operación registrada" : "La operación no se pudo registrar";
 					}
 				} else {
-					$nombreExiste = $operaciones->verificarNombreEditarExiste($titulo, $idoperacion, $idusuario);
+					$nombreExiste = $operaciones->verificarNombreEditarExiste($titulo, $idoperacion);
 					if ($nombreExiste) {
 						echo "El nombre de la operación ya existe.";
 					} else {
@@ -68,11 +68,11 @@ if (!isset($_SESSION["nombre"])) {
 
 			case 'listar':
 
-				if ($cargo == "superadmin") {
+				// if ($cargo == "superadmin") {
 					$rspta = $operaciones->listar();
-				} else {
-					$rspta = $operaciones->listarPorUsuario($idusuario);
-				}
+				// } else {
+					// $rspta = $operaciones->listarPorUsuario($idusuario);
+				// }
 
 				$data = array();
 
@@ -80,7 +80,7 @@ if (!isset($_SESSION["nombre"])) {
 				{
 					if ($reg == "admin" && $cargo == "admin" && $idusuario == $_SESSION["idusuario"]) {
 						return $buttonType;
-					} elseif ($cargo == "superadmin" || $cargo == "cajero" && $idusuario == $_SESSION["idusuario"]) {
+					} elseif ($cargo == "superadmin" || ($cargo == "vendedor_impresion" && $idusuario == $_SESSION["idusuario"])) {
 						return $buttonType;
 					} else {
 						return '';
@@ -89,6 +89,7 @@ if (!isset($_SESSION["nombre"])) {
 
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
+					
 					switch ($reg->cargo) {
 						case 'superadmin':
 							$cargo_detalle = "Superadministrador";

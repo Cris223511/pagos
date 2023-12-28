@@ -25,14 +25,13 @@ if (!isset($_SESSION["nombre"])) {
 
     $pdf->SetFillColor(232, 232, 232);
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(45, 6, utf8_decode('Local'), 1, 0, 'C', 1);
-    $pdf->Cell(25, 6, utf8_decode('RUC'), 1, 0, 'C', 1);
-    $pdf->Cell(80, 6, utf8_decode('Descripción'), 1, 0, 'C', 1);
+    $pdf->Cell(40, 6, utf8_decode('Local'), 1, 0, 'C', 1);
+    $pdf->Cell(110, 6, utf8_decode('Descripción'), 1, 0, 'C', 1);
     $pdf->Cell(40, 6, utf8_decode('Fecha y hora'), 1, 0, 'C', 1);
 
     $pdf->Ln(10);
-    require_once "../modelos/Locales.php";
-    $locales = new Local();
+    require_once "../modelos/LocalesExternos.php";
+    $locales = new LocalExterno();
 
     $idusuario = $_SESSION["idusuario"];
     $cargo = $_SESSION["cargo"];
@@ -43,16 +42,15 @@ if (!isset($_SESSION["nombre"])) {
       $rspta = $locales->listarPorUsuario($idusuario);
     }
 
-    $pdf->SetWidths(array(45, 25, 80, 40));
+    $pdf->SetWidths(array(40, 110, 40));
 
     while ($reg = $rspta->fetch_object()) {
       $titulo = $reg->titulo;
-      $local_ruc = $reg->local_ruc;
       $descripcion = $reg->descripcion;
       $fecha = $reg->fecha;
 
       $pdf->SetFont('Arial', '', 10);
-      $pdf->Row(array(utf8_decode($titulo), utf8_decode($local_ruc), utf8_decode($descripcion), utf8_decode($fecha)));
+      $pdf->Row(array(utf8_decode($titulo), utf8_decode($descripcion), utf8_decode($fecha)));
     }
 
     $pdf->Output();

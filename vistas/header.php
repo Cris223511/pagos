@@ -133,6 +133,10 @@ $local_login = $_SESSION['local'];
   body {
     padding-right: 0 !important
   }
+
+  textarea {
+    resize: none;
+  }
 </style>
 
 <!DOCTYPE html>
@@ -154,6 +158,8 @@ $local_login = $_SESSION['local'];
   <link rel="stylesheet" href="../public/css/font-awesome.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../public/css/AdminLTE.min.css">
+  <!-- Lightbox style -->
+  <link href="../public/glightbox/css/glightbox.min.css" rel="stylesheet" asp-append-version="true">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../public/css/_all-skins.min.css">
@@ -192,7 +198,7 @@ $local_login = $_SESSION['local'];
                 <li class="user-header" style="background: #002a8e !important;">
                   <img src="../files/usuarios/<?php echo $_SESSION['imagen']; ?>" class="img-circle" alt="User Image">
                   <p style="color: white !important;">
-                    Sistema de Peluquería
+                    Sistema de Pagos
                     <small>nuestro contacto: +51 937 075 845</small>
                   </p>
                 </li>
@@ -313,16 +319,14 @@ $local_login = $_SESSION['local'];
             </a>
             <ul class="treeview-menu">
               <li id="lConfUsuario"><a href="confUsuario.php"><i class="fa fa-circle-o"></i> Configuración de perfil</a></li>
-              <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Mis locales</a></li>
+              <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Mi local</a></li>
+              <li id="lrLocales"><a href="reporte_locales.php"><i class="fa fa-circle-o"></i> Reporte de locales</a></li>
               ';
             if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
               echo '
                 <li id="lLocalesExternos"><a href="localesExternos.php"><i class="fa fa-circle-o"></i> Locales externos</a></li>
-              ';
-            };
-            echo '
-              <li id="lrLocales"><a href="reporte_locales.php"><i class="fa fa-circle-o"></i> Reporte de locales</a></li>
-              ';
+                ';
+            }
             if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
               echo '
               <li id="lLocalesDisponibles"><a href="localesDisponibles.php"><i class="fa fa-circle-o"></i> Crear locales disponibles</a></li>

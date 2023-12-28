@@ -63,12 +63,6 @@ function listarVacio() {
 }
 
 function listar() {
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-
-	var fecha_inicio = $("#fecha_inicio").val();
-	var fecha_fin = $("#fecha_fin").val();
-
 	$("#buscarPorBanco").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
@@ -88,7 +82,7 @@ function listar() {
 			"ajax":
 			{
 				url: '../ajax/reporte_bancos.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, banco: "" },
+				data: { fecha_inicio: "", fecha_fin: "", banco: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -135,8 +129,14 @@ function buscarPorFecha() {
 		return;
 	}
 
-	$("#idbanco").val("");
-	$("#idbanco").selectpicker('refresh');
+	var banco = $("#idbanco").val();
+	var nombreBanco = "";
+
+	if (banco != "") {
+		nombreBanco = $("#idbanco").find("option:selected").text().split(" - ")[0].trim();
+	} else {
+		nombreBanco = "";
+	}
 
 	$("#buscarPorBanco").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
@@ -157,7 +157,7 @@ function buscarPorFecha() {
 			"ajax":
 			{
 				url: '../ajax/reporte_bancos.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, banco: "" },
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, banco: nombreBanco },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -257,10 +257,6 @@ function buscarPorBanco() {
 
 function buscarTodos() {
 	listar();
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-	$("#idbanco").val("");
-	$("#idbanco").selectpicker('refresh');
 }
 
 function resetear() {

@@ -24,7 +24,6 @@ if (!isset($_SESSION["nombre"])) {
 
 		// Variables de sesión a utilizar.
 		$idusuario = $_SESSION["idusuario"];
-		$idlocal_session = $_SESSION['idlocal'];
 		$cargo = $_SESSION["cargo"];
 
 		$idlocal = isset($_POST["idlocal"]) ? limpiarCadena($_POST["idlocal"]) : "";
@@ -64,11 +63,6 @@ if (!isset($_SESSION["nombre"])) {
 				echo $rspta ? "Local activado" : "El local no se pudo activar";
 				break;
 
-			case 'desasignar':
-				$rspta = $locales->desasignar($idlocal);
-				echo $rspta ? "El usuario ha sido desasignado del local correctamente" : "El usuario no se pudo desasignar";
-				break;
-
 			case 'eliminar':
 				$rspta = $locales->eliminar($idlocal);
 				echo $rspta ? "Local eliminado" : "El local no se pudo eliminar";
@@ -80,19 +74,37 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'listar':
-
-				// $rspta = $locales->listarPorUsuario($idusuario);
+				$fecha_inicio = $_GET["fecha_inicio"];
+				$fecha_fin = $_GET["fecha_fin"];
 
 				if ($cargo == "superadmin" || $cargo == "admin") {
-					$rspta = $locales->listar();
+					if ($fecha_inicio == "" && $fecha_fin == "") {
+						$rspta = $locales->listar();
+					} else {
+						$rspta = $locales->listarPorFecha($fecha_inicio, $fecha_fin);
+					}
 				} else {
-					$rspta = $locales->listarPorUsuario($idusuario);
+					if ($fecha_inicio == "" && $fecha_fin == "") {
+						$rspta = $locales->listarPorUsuario($idusuario);
+					} else {
+						$rspta = $locales->listarPorUsuarioFecha($idusuario, $fecha_inicio, $fecha_fin);
+					}
 				}
 
 				$data = array();
 
+				function mostrarBoton($cargo, $idusuario, $buttonType)
+				{
+					if ($cargo == "superadmin" || $cargo == "admin") {
+						return $buttonType;
+					} else {
+						return '';
+					}
+				}
+
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
+
 					switch ($reg->cargo) {
 						case 'superadmin':
 							$cargo_detalle = "Superadministrador";
@@ -101,31 +113,29 @@ if (!isset($_SESSION["nombre"])) {
 							$cargo_detalle = "Administrador";
 							break;
 						case 'vendedor_impresion':
-							$cargo_detalle = "Vendedor Impresión";
+							$cargo_detalle = "Vendedor impresión";
 							break;
 						case 'vendedor_total':
-							$cargo_detalle = "Vendedor Total";
+							$cargo_detalle = "Vendedor control total";
+							break;
 						default:
 							break;
 					}
+
 					$reg->descripcion = (strlen($reg->descripcion) > 70) ? substr($reg->descripcion, 0, 70) . "..." : $reg->descripcion;
 
 					$data[] = array(
 						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
+							mostrarBoton($cargo, $reg->idusuario, '<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>') .
+							'<a data-toggle="modal" href="#myModal"><button class="btn btn-bcp" style="margin-right: 3px; height: 35px;" onclick="trabajadores(' . $reg->idlocal . ',\'' . $reg->titulo . '\')"><i class="fa fa-user"></i></button></a>' .
 							(($reg->estado == 'activado') ?
-								(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
-								(('<button class="btn btn-success" style="margin-right: 3px; height: 35px;" onclick="desasignar(' . $reg->idlocal . ',\'' . $reg->nombre . '\',\'' . $reg->titulo . '\');"><i class="fa fa-times-circle"></i></button>')) .
-								(('<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idlocal . ')"><i class="fa fa-close"></i></button>')) .
-								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idlocal . ')"><i class="fa fa-trash"></i></button>')) : (('<button class="btn btn-warning" style="margin-right: 3px;" onclick="mostrar(' . $reg->idlocal . ')"><i class="fa fa-pencil"></i></button>')) .
-								(('<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idlocal . ')"><i style="margin-left: -2px" class="fa fa-check"></i></button>')) .
-								(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idlocal . ')"><i class="fa fa-trash"></i></button>'))) . '</div>',
-						"1" => ucwords($reg->nombre),
-						"2" => ucwords($cargo_detalle),
-						"3" => $reg->titulo,
-						"4" => $reg->local_ruc,
-						"5" => $reg->descripcion,
-						"6" => $reg->fecha,
-						"7" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
+								(mostrarBoton($cargo, $reg->idusuario, '<button class="btn btn-danger" style="margin-right: 3px; height: 35px;" onclick="desactivar(' . $reg->idlocal . ')"><i class="fa fa-close"></i></button>')) : (mostrarBoton($cargo, $reg->idusuario, '<button class="btn btn-success" style="margin-right: 3px; width: 35px; height: 35px;" onclick="activar(' . $reg->idlocal . ')"><i style="margin-left: -2px" class="fa fa-check"></i></button>'))) .
+							'</div>',
+						"1" => $reg->titulo,
+						"2" => $reg->local_ruc,
+						"3" => $reg->descripcion,
+						"4" => $reg->fecha,
+						"5" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'
 					);
 				}
@@ -139,57 +149,57 @@ if (!isset($_SESSION["nombre"])) {
 				echo json_encode($results);
 				break;
 
-			case 'selectLocal':
-				$rspta = $locales->listarPorUsuarioActivos($idusuario);
-				$result = mysqli_fetch_all($rspta, MYSQLI_ASSOC);
+			case 'listarUsuariosLocal':
 
-				$data = [];
-				foreach ($result as $row) {
-					$data["locales"][] = $row;
-				}
+				$idlocal2 = isset($_GET["idlocal"]) ? limpiarCadena($_GET["idlocal"]) : "";
 
-				echo json_encode($data);
-				break;
+				$rspta = $locales->listarUsuariosPorLocal($idlocal2);
 
-			case 'selectLocalASC':
-				$rspta = $locales->listarPorUsuarioActivosASC($idusuario);
-				$result = mysqli_fetch_all($rspta, MYSQLI_ASSOC);
-
-				$data = [];
-				foreach ($result as $row) {
-					$data["locales"][] = $row;
-				}
-
-				echo json_encode($data);
-				break;
-
-			case 'selectLocales':
-				$rspta = $locales->listar();
-
-				echo '<option value="">- Seleccione -</option>';
-				while ($reg = $rspta->fetch_object()) {
-					echo '<option value="' . $reg->idlocal . '"> ' . $reg->titulo . '</option>';
-				}
-				break;
-
-			case 'selectLocalUsuario':
-				$rspta = $locales->listarPorUsuarioActivos($idusuariolocal);
+				$data = array();
 
 				while ($reg = $rspta->fetch_object()) {
-					echo '<option value="' . $reg->idlocal . '" data-local-ruc="' . $reg->local_ruc . '"> ' . $reg->titulo . '</option>';
+					$cargo_detalle = "";
+
+					switch ($reg->cargo) {
+						case 'superadmin':
+							$cargo_detalle = "Superadministrador";
+							break;
+						case 'admin':
+							$cargo_detalle = "Administrador";
+							break;
+						case 'vendedor_impresion':
+							$cargo_detalle = "Vendedor impresión";
+							break;
+						case 'vendedor_total':
+							$cargo_detalle = "Vendedor control total";
+							break;
+						default:
+							break;
+					}
+
+					$telefono = ($reg->telefono == '') ? 'Sin registrar' : number_format($reg->telefono, 0, '', ' ');
+
+					$data[] = array(
+						"0" => $reg->login,
+						"1" => $cargo_detalle,
+						"2" => $reg->nombre,
+						"3" => $reg->tipo_documento,
+						"4" => $reg->num_documento,
+						"5" => $telefono,
+						"6" => $reg->email,
+						"7" => "<img src='../files/usuarios/" . $reg->imagen . "' height='50px' width='50px' >",
+						"8" => ($reg->estado) ? '<span class="label bg-green">Activado</span>' :
+							'<span class="label bg-red">Desactivado</span>'
+					);
 				}
-				break;
+				$results = array(
+					"sEcho" => 1,
+					"iTotalRecords" => count($data),
+					"iTotalDisplayRecords" => count($data),
+					"aaData" => $data
+				);
 
-			case 'selectLocalDisponible':
-				$rspta = $locales->listarLocalesDisponiblesActivos();
-				$result = mysqli_fetch_all($rspta, MYSQLI_ASSOC);
-
-				$data = [];
-				foreach ($result as $row) {
-					$data["locales"][] = $row;
-				}
-
-				echo json_encode($data);
+				echo json_encode($results);
 				break;
 		}
 	} else {

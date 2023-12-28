@@ -44,25 +44,32 @@ if (!isset($_SESSION["nombre"])) {
                 </table>
               </div>
               <div class="panel-body" style="height: max-content;" id="formularioregistros">
-                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <label>De:</label>
-                  <input type="text" class="form-control" name="emisor" id="emisor" autocomplete="off" disabled>
-                </div>
-                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <label>Para:</label>
-                  <input type="text" class="form-control" name="receptor" id="receptor" autocomplete="off" disabled>
-                </div>
-                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <label>Asunto:</label>
-                  <input type="text" class="form-control" name="asunto" id="asunto" autocomplete="off" disabled>
-                </div>
-                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <label>Mensaje:</label>
-                  <textarea type="text" class="form-control" name="mensaje" id="mensaje" rows="4" disabled></textarea>
-                </div>
-                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <button class="btn btn-warning" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cerrar</button>
-                </div>
+                <form name="formulario" id="formulario" method="POST">
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>De(*):</label>
+                    <input type="hidden" name="idconversacion" id="idconversacion">
+                    <select id="emisor" name="emisor" class="form-control selectpicker" data-size="5" disabled>
+                      <option value="">- Seleccione -</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Para(*):</label>
+                    <select id="receptor" name="receptor" class="form-control selectpicker" data-live-search="true" data-size="5" disabled>
+                      <option value="">- Seleccione -</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label>Asunto(*):</label>
+                    <input type="text" class="form-control" name="asunto" id="asunto" maxlength="40" autocomplete="off" placeholder="Ingrese un asunto." disabled>
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label>Mensaje(*):</label>
+                    <textarea type="text" class="form-control" name="mensaje" id="mensaje" maxlength="250" placeholder="Ingrese un mensaje." rows="4" disabled></textarea>
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="btn btn-warning" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cerrar</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

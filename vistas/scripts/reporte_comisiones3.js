@@ -6,7 +6,7 @@ function init() {
 	$('#mrComisiones').addClass("treeview active");
 	$('#lrComisiones').addClass("active");
 
-	$.post("../ajax/usuario.php?op=selectUsuarios", function (r) {
+	$.post("../ajax/usuario.php?op=selectUsuario", function (r) {
 		console.log(r);
 		$("#idusuario").html(r);
 		$('#idusuario').selectpicker('refresh');
@@ -63,12 +63,6 @@ function listarVacio() {
 }
 
 function listar() {
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-
-	var fecha_inicio = $("#fecha_inicio").val();
-	var fecha_fin = $("#fecha_fin").val();
-
 	$("#buscarPorUsuario").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
@@ -88,7 +82,7 @@ function listar() {
 			"ajax":
 			{
 				url: '../ajax/reporte_comisiones.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, usuario: "" },
+				data: { fecha_inicio: "", fecha_fin: "", usuario: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -135,8 +129,14 @@ function buscarPorFecha() {
 		return;
 	}
 
-	$("#idusuario").val("");
-	$("#idusuario").selectpicker('refresh');
+	var usuario = $("#idusuario").val();
+	var nombreUsuario = "";
+
+	if (usuario != "") {
+		nombreUsuario = $("#idusuario").find("option:selected").text().split(" - ")[0].trim();
+	} else {
+		nombreUsuario = "";
+	}
 
 	$("#buscarPorUsuario").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
@@ -157,7 +157,7 @@ function buscarPorFecha() {
 			"ajax":
 			{
 				url: '../ajax/reporte_comisiones.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, usuario: "" },
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, usuario: nombreUsuario },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -196,7 +196,7 @@ function buscarPorUsuario() {
 	var nombreUsuario = "";
 
 	if (usuario === "") {
-		alert("El usuario es obligatoria.");
+		alert("El usuario es obligatorio.");
 		return;
 	} else {
 		nombreUsuario = $("#idusuario").find("option:selected").text().split(" - ")[0].trim();
@@ -260,10 +260,6 @@ function buscarPorUsuario() {
 
 function buscarTodos() {
 	listar();
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-	$("#idusuario").val("");
-	$("#idusuario").selectpicker('refresh');
 }
 
 function resetear() {

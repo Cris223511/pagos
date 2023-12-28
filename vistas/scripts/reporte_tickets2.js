@@ -180,8 +180,6 @@ function buscarPorFecha() {
 
 function buscarTodos() {
 	listar();
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
 }
 
 function resetear() {

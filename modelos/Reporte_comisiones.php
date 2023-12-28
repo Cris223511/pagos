@@ -121,6 +121,67 @@ class ReporteComisiones
 		return ejecutarConsulta($sql);
 	}
 
+	public function listarPorFechaYbanco($usuario, $fecha_inicio, $fecha_fin)
+	{
+		$sql = "SELECT
+				  t.idticket,
+				  u.nombre as usuario,
+				  u.cargo as cargo,
+				  b.titulo as banco,
+				  o.titulo as operacion,
+				  l.titulo as local,
+				  l.local_ruc as local_ruc,
+				  t.num_ticket,
+				  t.num_ope,
+				  t.tipo_letra,
+				  t.importe,
+				  t.comision,
+				  t.descripcion,
+				  DATE_FORMAT(t.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha,
+				  t.estado
+				FROM tickets t
+				LEFT JOIN usuario u ON t.idusuario = u.idusuario
+				LEFT JOIN bancos b ON t.idbanco = b.idbanco
+				LEFT JOIN operaciones o ON t.idoperacion = o.idoperacion
+				LEFT JOIN locales l ON t.idlocal = l.idlocal
+				WHERE DATE(t.fecha_hora) >= '$fecha_inicio'
+				AND DATE(t.fecha_hora) <= '$fecha_fin'
+				AND u.nombre LIKE '%$usuario%'
+				ORDER BY t.idticket DESC";
+		return ejecutarConsulta($sql);
+	}
+
+	public function listarPorFechaYbancoUsuario($idusuario, $usuario, $fecha_inicio, $fecha_fin)
+	{
+		$sql = "SELECT
+				  t.idticket,
+				  u.nombre as usuario,
+				  u.cargo as cargo,
+				  b.titulo as banco,
+				  o.titulo as operacion,
+				  l.titulo as local,
+				  l.local_ruc as local_ruc,
+				  t.num_ticket,
+				  t.num_ope,
+				  t.tipo_letra,
+				  t.importe,
+				  t.comision,
+				  t.descripcion,
+				  DATE_FORMAT(t.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha,
+				  t.estado
+				FROM tickets t
+				LEFT JOIN usuario u ON t.idusuario = u.idusuario
+				LEFT JOIN bancos b ON t.idbanco = b.idbanco
+				LEFT JOIN operaciones o ON t.idoperacion = o.idoperacion
+				LEFT JOIN locales l ON t.idlocal = l.idlocal
+				WHERE DATE(t.fecha_hora) >= '$fecha_inicio'
+				AND DATE(t.fecha_hora) <= '$fecha_fin'
+				AND t.idusuario = '$idusuario'
+				AND u.nombre LIKE '%$usuario%'
+				ORDER BY t.idticket DESC";
+		return ejecutarConsulta($sql);
+	}
+
 	public function listarPorComision($usuario)
 	{
 		$sql = "SELECT

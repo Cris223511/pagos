@@ -1,5 +1,5 @@
 var tabla;
-var idSession;
+// var idSession;
 
 function init() {
 	mostrarform(false);
@@ -12,26 +12,27 @@ function init() {
 	$('#mConversacion').addClass("treeview active");
 	$('#lAsignarComentarios').addClass("active");
 
-	$.post("../ajax/usuario.php?op=selectUsuarios", function (r) {
+	$.post("../ajax/usuario.php?op=emisores", function (r) {
 		console.log(r);
 		$("#emisor").html(r);
 		$('#emisor').selectpicker('refresh');
+		$('#emisor option:eq(1)').prop('selected', true);
+		$("#emisor").selectpicker('refresh');
+	})
+
+	$.post("../ajax/usuario.php?op=receptores", function (r) {
+		console.log(r);
 		$("#receptor").html(r);
 		$('#receptor').selectpicker('refresh');
-
-		$.post("../ajax/comentarios.php?op=getSessionId", function (r) {
-			console.log(r);
-			idSession = r;
-			$("#emisor").val(idSession);
-			$('#emisor').selectpicker('refresh');
-		})
 	})
 }
 
 function limpiar() {
-	$("#emisor").val(idSession);
+	// $("#emisor").val(idSession);
+	// $("#emisor").selectpicker('refresh');
+	$('#emisor option:eq(1)').prop('selected', true);
 	$("#emisor").selectpicker('refresh');
-	$("#receptor").val(0);
+	$("#receptor").val("");
 	$("#receptor").selectpicker('refresh');
 	$("#asunto").val("");
 	$("#mensaje").val("");
@@ -101,9 +102,7 @@ function guardaryeditar(e) {
 	e.preventDefault();
 	$("#btnGuardar").prop("disabled", true);
 
-	$("#emisor").prop("disabled", false);
 	var formData = new FormData($("#formulario")[0]);
-	$("#emisor").prop("disabled", true);
 
 	$.ajax({
 		url: "../ajax/comentarios.php?op=guardaryeditar",
@@ -117,30 +116,6 @@ function guardaryeditar(e) {
 			bootbox.alert(datos);
 			mostrarform(false);
 			tabla.ajax.reload();
-		}
-	});
-}
-
-function enviarTodos() {
-	var emisor = $("#emisor").val();
-	var asunto = $("#asunto").val();
-	var mensaje = $("#mensaje").val();
-
-	console.log(emisor);
-
-	if (asunto === "" || mensaje === "") {
-		bootbox.alert("El asunto y el mensaje son requeridos.");
-		return;
-	}
-
-	bootbox.confirm("¿Estás seguro de enviar el asunto y mensaje a <strong>todos los usuarios</strong>?", function (result) {
-		if (result) {
-			$.post("../ajax/comentarios.php?op=enviarTodos", { emisor: idSession, asunto: asunto, mensaje: mensaje }, function (e) {
-				limpiar();
-				bootbox.alert(e);
-				mostrarform(false);
-				tabla.ajax.reload();
-			});
 		}
 	});
 }

@@ -114,69 +114,39 @@ if (!isset($_SESSION["nombre"])) {
               ?>
             </div>
             <form name="formulario" id="formulario" method="POST">
-              <!-- <div class="panel-body formularioregistros" style="background-color: #ecf0f5 !important; padding-left: 0 !important; padding-right: 0 !important; height: max-content;">
-                <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 8px !important; padding-left: 20px !important; padding-right: 20px !important; background-color: white;">
-                  <div class="box-header">
-                    <h1 class="box-title"><strong>Bancos y operaciones</strong></h1>
-                  </div>
-                </div>
-              </div> -->
               <div class="panel-body formularioregistros" style="height: max-content;">
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: white; border-top: 3px #3686b4 solid; padding-top: 20px;"> -->
-                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
                   <label>N° de ticket(*):</label>
                   <input type="number" class="form-control" name="num_ticket" id="num_ticket" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12" placeholder="Ingrese el N° de ticket." required>
                 </div>
-                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <label>N° de operación(*):</label>
                   <input type="number" class="form-control" name="num_ope" id="num_ope" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12" placeholder="Ingrese el N° de operación." required>
                 </div>
-                <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="form-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
                   <label>Banco(*):</label>
                   <input type="hidden" name="idticket" id="idticket">
                   <select id="idbanco" name="idbanco" class="form-control selectpicker" data-live-search="true" data-size="5" required>
                     <option value="">- Seleccione -</option>
                   </select>
                 </div>
-                <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="form-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
                   <label>Operación(*):</label>
                   <select id="idoperacion" name="idoperacion" class="form-control selectpicker" data-live-search="true" data-size="5" required>
                     <option value="">- Seleccione -</option>
                   </select>
                 </div>
-                <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="panel-body formularioregistros" style="background-color: #ecf0f5 !important; padding-left: 0 !important; padding-right: 0 !important; height: max-content;">
-                <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 8px !important; padding-left: 20px !important; padding-right: 20px !important; background-color: white;">
-                  <div class="box-header">
-                    <h1 class="box-title"><strong>Datos del local</strong></h1>
-                  </div>
-                </div>
-              </div> -->
-                <!-- <div class="panel-body formularioregistros" style="background-color: white !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 0 !important; height: max-content;"> -->
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12" style="border-top: 3px #3686b4 solid; padding-top: 20px;"> -->
-                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <label>Local(*):</label>
                   <select id="idlocal" name="idlocal" class="form-control selectpicker idlocal" data-live-search="true" data-size="5" onchange="actualizarRUC()">
                     <option value="">- Seleccione -</option>
                   </select>
                 </div>
-                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
                   <label>RUC local(*):</label>
                   <input type="number" class="form-control" id="local_ruc" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" placeholder="RUC del local" disabled>
                 </div>
-                <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="panel-body formularioregistros" style="background-color: #ecf0f5 !important; padding-left: 0 !important; padding-right: 0 !important; height: max-content;">
-                <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 8px !important; padding-left: 20px !important; padding-right: 20px !important; background-color: white;">
-                  <div class="box-header">
-                    <h1 class="box-title"><strong>Datos del ticket</strong></h1>
-                  </div>
-                </div>
-              </div> -->
-                <!-- <div class="panel-body formularioregistros" style="background-color: white !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 0 !important; height: max-content;"> -->
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12" style="border-top: 3px #3686b4 solid; padding-top: 20px;"> -->
-                <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 0;">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding: 0;">
                   <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label>Tipo de letra(*):</label>
                     <select class="form-control select-picker" name="tipo_letra" id="tipo_letra" required>
@@ -221,7 +191,6 @@ if (!isset($_SESSION["nombre"])) {
                     <object type="application/pdf" style="width: 100%; height: 410px;" id="visorPDF2" data=""></object>
                   </div>
                 </div>
-                <!-- </div> -->
               </div>
             </form>
           </div>

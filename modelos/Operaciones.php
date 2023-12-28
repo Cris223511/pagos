@@ -15,9 +15,9 @@ class Operacion
 		return ejecutarConsulta($sql);
 	}
 
-	public function verificarNombreExiste($titulo, $idusuario)
+	public function verificarNombreExiste($titulo)
 	{
-		$sql = "SELECT * FROM operaciones WHERE titulo = '$titulo' AND idusuario = '$idusuario' AND eliminado = '0'";
+		$sql = "SELECT * FROM operaciones WHERE titulo = '$titulo' AND eliminado = '0'";
 		$resultado = ejecutarConsulta($sql);
 		if (mysqli_num_rows($resultado) > 0) {
 			// El titulo ya existe en la tabla
@@ -27,9 +27,9 @@ class Operacion
 		return false;
 	}
 
-	public function verificarNombreEditarExiste($titulo, $idoperacion, $idusuario)
+	public function verificarNombreEditarExiste($titulo, $idoperacion)
 	{
-		$sql = "SELECT * FROM operaciones WHERE titulo = '$titulo' AND idoperacion != '$idoperacion' AND idusuario = '$idusuario' AND eliminado = '0'";
+		$sql = "SELECT * FROM operaciones WHERE titulo = '$titulo' AND idoperacion != '$idoperacion' AND eliminado = '0'";
 		$resultado = ejecutarConsulta($sql);
 		if (mysqli_num_rows($resultado) > 0) {
 			// El titulo ya existe en la tabla

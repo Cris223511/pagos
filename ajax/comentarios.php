@@ -58,7 +58,6 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'listar':
-
 				$rspta = $comentarios->listarPorUsuario($idusuario);
 
 				$data = array();
@@ -68,7 +67,7 @@ if (!isset($_SESSION["nombre"])) {
 						"0" => '<div style="display: flex; justify-content: center">' .
 							(('<button class="btn btn-bcp" style="height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-eye"></i></button>')) . '</div>',
 						"1" => $reg->emisor,
-						"2" => $reg->receptor,
+						"2" => ($reg->receptor == "") ? "todos" : $reg->receptor,
 						"3" => $reg->asunto,
 						"4" => $reg->mensaje,
 						"5" => $reg->fecha,
@@ -85,18 +84,19 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'listar2':
-
 				$rspta = $comentarios->listar();
 
 				$data = array();
 
 				while ($reg = $rspta->fetch_object()) {
+					$reg->mensaje = (strlen($reg->mensaje) > 70) ? substr($reg->mensaje, 0, 70) . "..." : $reg->mensaje;
+					
 					$data[] = array(
 						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
 							(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-pencil"></i></button>')) .
 							(('<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idconversacion . ')"><i class="fa fa-trash"></i></button>')) . '</div>',
 						"1" => $reg->emisor,
-						"2" => $reg->receptor,
+						"2" => ($reg->receptor == "") ? "todos" : $reg->receptor,
 						"3" => $reg->asunto,
 						"4" => $reg->mensaje,
 						"5" => $reg->fecha,

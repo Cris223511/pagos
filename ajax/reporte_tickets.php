@@ -45,6 +45,7 @@ if (!isset($_SESSION["nombre"])) {
 
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
+					
 					switch ($reg->cargo) {
 						case 'superadmin':
 							$cargo_detalle = "Superadministrador";
@@ -60,6 +61,7 @@ if (!isset($_SESSION["nombre"])) {
 						default:
 							break;
 					}
+
 					$data[] = array(
 						"0" => '<div style="display: flex; justify-content: center">' .
 							('<a target="_blank" href="../reportes/exTicket.php?id=' . $reg->idticket . '">

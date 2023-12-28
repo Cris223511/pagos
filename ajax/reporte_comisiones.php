@@ -31,7 +31,9 @@ if (!isset($_SESSION["nombre"])) {
 				if ($cargo == "superadmin" || $cargo == "admin") {
 					if ($fecha_inicio == "" && $fecha_fin == ""  && $usuario == "") {
 						$rspta = $tickets->listar();
-					} elseif ($usuario == "") {
+					} elseif ($fecha_inicio != "" && $fecha_fin != "" && $usuario != "") {
+						$rspta = $tickets->listarPorFechaYbanco($usuario, $fecha_inicio, $fecha_fin);
+					} elseif ($fecha_inicio != "" && $fecha_fin != "" && $usuario == "") {
 						$rspta = $tickets->listarPorFecha($fecha_inicio, $fecha_fin);
 					} else {
 						$rspta = $tickets->listarPorComision($usuario);
@@ -39,7 +41,9 @@ if (!isset($_SESSION["nombre"])) {
 				} elseif ($cargo == "vendedor_total") {
 					if ($fecha_inicio == "" && $fecha_fin == ""  && $usuario == "") {
 						$rspta = $tickets->listarPorUsuario($idusuario);
-					} elseif ($usuario == "") {
+					} elseif ($fecha_inicio != "" && $fecha_fin != "" && $usuario != "") {
+						$rspta = $tickets->listarPorFechaYbancoUsuario($idusuario, $usuario, $fecha_inicio, $fecha_fin);
+					} elseif ($fecha_inicio != "" && $fecha_fin != "" && $usuario == "") {
 						$rspta = $tickets->listarPorUsuarioFecha($idusuario, $fecha_inicio, $fecha_fin);
 					} else {
 						$rspta = $tickets->listarPorComisionUsuario($idusuario, $usuario);
@@ -50,6 +54,7 @@ if (!isset($_SESSION["nombre"])) {
 
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
+
 					switch ($reg->cargo) {
 						case 'superadmin':
 							$cargo_detalle = "Superadministrador";
@@ -65,6 +70,7 @@ if (!isset($_SESSION["nombre"])) {
 						default:
 							break;
 					}
+
 					$data[] = array(
 						"0" => '<div style="display: flex; justify-content: center">' .
 							('<a target="_blank" href="../reportes/exTicket.php?id=' . $reg->idticket . '">

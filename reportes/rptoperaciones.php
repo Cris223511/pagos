@@ -36,11 +36,11 @@ if (!isset($_SESSION["nombre"])) {
     $idusuario = $_SESSION["idusuario"];
     $cargo = $_SESSION["cargo"];
 
-    if ($cargo == "superadmin" || $cargo == "admin") {
+    // if ($cargo == "superadmin" || $cargo == "admin") {
       $rspta = $operaciones->listar();
-    } else {
-      $rspta = $operaciones->listarPorUsuario($idusuario);
-    }
+    // } else {
+      // $rspta = $operaciones->listarPorUsuario($idusuario);
+    // }
 
     $pdf->SetWidths(array(40, 110, 40));
 

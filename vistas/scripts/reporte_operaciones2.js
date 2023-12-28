@@ -63,12 +63,6 @@ function listarVacio() {
 }
 
 function listar() {
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-
-	var fecha_inicio = $("#fecha_inicio").val();
-	var fecha_fin = $("#fecha_fin").val();
-
 	$("#buscarPorOperacion").prop("disabled", true);
 	$("#buscarTodos").prop("disabled", true);
 	$("#buscarPorFecha").prop("disabled", true);
@@ -88,7 +82,7 @@ function listar() {
 			"ajax":
 			{
 				url: '../ajax/reporte_operaciones.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, operacion: "" },
+				data: { fecha_inicio: "", fecha_fin: "", operacion: "" },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -135,6 +129,15 @@ function buscarPorFecha() {
 		return;
 	}
 
+	var operacion = $("#idoperacion").val();
+	var nombreOperacion = "";
+
+	if (operacion != "") {
+		nombreOperacion = $("#idoperacion").find("option:selected").text().split(" - ")[0].trim();
+	} else {
+		nombreOperacion = "";
+	}
+
 	$("#idoperacion").val("");
 	$("#idoperacion").selectpicker('refresh');
 
@@ -157,7 +160,7 @@ function buscarPorFecha() {
 			"ajax":
 			{
 				url: '../ajax/reporte_operaciones.php?op=listar',
-				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, operacion: "" },
+				data: { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, operacion: nombreOperacion },
 				type: "get",
 				dataType: "json",
 				error: function (e) {
@@ -196,7 +199,7 @@ function buscarPorOperacion() {
 	var nombreOperacion = "";
 
 	if (operacion === "") {
-		alert("La operación es obligatoria.");
+		alert("La operación es obligatorio.");
 		return;
 	} else {
 		nombreOperacion = $("#idoperacion").find("option:selected").text().split(" - ")[0].trim();
@@ -257,10 +260,6 @@ function buscarPorOperacion() {
 
 function buscarTodos() {
 	listar();
-	$("#fecha_inicio").val("");
-	$("#fecha_fin").val("");
-	$("#idoperacion").val("");
-	$("#idoperacion").selectpicker('refresh');
 }
 
 function resetear() {
