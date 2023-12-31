@@ -58,7 +58,11 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'listar':
-				$rspta = $comentarios->listarPorUsuario($idusuario);
+				if ($cargo == "superadmin" || $cargo == "admin") {
+					$rspta = $comentarios->listar();
+				} elseif ($cargo == "vendedor_total") {
+					$rspta = $comentarios->listarPorUsuario($idusuario);
+				}
 
 				$data = array();
 

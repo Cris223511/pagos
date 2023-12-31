@@ -13,6 +13,8 @@ $("#frmAcceso").on('submit', function (e) {
                 bootbox.alert("Su usuario está desactivado, comuníquese con el administrador.");
             } else if (data == 1) {
                 bootbox.alert("El usuario no se encuentra disponible, comuníquese con el administrador.");
+            } else if (data == 2) {
+                bootbox.alert("El local en donde usted está trabajando está desactivado, comuníquese con el administrador.");
             } else if (data != "null") {
                 $(location).attr("href", "escritorio.php");
             } else {

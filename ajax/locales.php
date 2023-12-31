@@ -234,11 +234,15 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'selectLocal':
-				$rspta = $locales->listarActivosASC();
+				if ($cargo == "superadmin" || $cargo == "admin") {
+					$rspta = $locales->listarActivosASC();
+				} else {
+					$rspta = $locales->listarPorUsuario($idlocalSession);
+				}
 
 				echo '<option value="">- Seleccione -</option>';
 				while ($reg = $rspta->fetch_object()) {
-					echo '<option value="' . $reg->idlocal . '"> ' . $reg->titulo . '</option>';
+					echo '<option value="' . $reg->idlocal . '" data-local-ruc="' . $reg->local_ruc . '">' . $reg->titulo . '</option>';
 				}
 				break;
 
