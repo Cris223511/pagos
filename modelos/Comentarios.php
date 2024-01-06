@@ -33,19 +33,19 @@ class Comentario
 
 	public function mostrar($idconversacion)
 	{
-		$sql = "SELECT c.idconversacion, c.asunto, c.mensaje, c.idusuario as emisorID, c.receptor as receptorID, ue.nombre as emisor, ur.nombre as receptor, DATE_FORMAT(c.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha FROM conversaciones c LEFT JOIN usuario ue ON c.idusuario = ue.idusuario LEFT JOIN usuario ur ON c.receptor = ur.idusuario WHERE c.idconversacion='$idconversacion' ORDER BY c.idconversacion DESC";
+		$sql = "SELECT c.idconversacion, ue.idusuario, ue.cargo AS cargo, c.asunto, c.mensaje, c.idusuario as emisorID, c.receptor as receptorID, ue.nombre as emisor, ur.nombre as receptor, DATE_FORMAT(c.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha FROM conversaciones c LEFT JOIN usuario ue ON c.idusuario = ue.idusuario LEFT JOIN usuario ur ON c.receptor = ur.idusuario WHERE c.idconversacion='$idconversacion' ORDER BY c.idconversacion DESC";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	public function listar()
 	{
-		$sql = "SELECT c.idconversacion, c.asunto, c.mensaje, c.idusuario as emisorID, c.receptor as receptorID, ue.nombre as emisor, ur.nombre as receptor, DATE_FORMAT(c.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha FROM conversaciones c LEFT JOIN usuario ue ON c.idusuario = ue.idusuario LEFT JOIN usuario ur ON c.receptor = ur.idusuario ORDER BY c.idconversacion DESC";
+		$sql = "SELECT c.idconversacion, ue.idusuario, ue.cargo AS cargo, c.asunto, c.mensaje, c.idusuario as emisorID, c.receptor as receptorID, ue.nombre as emisor, ur.nombre as receptor, DATE_FORMAT(c.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha FROM conversaciones c LEFT JOIN usuario ue ON c.idusuario = ue.idusuario LEFT JOIN usuario ur ON c.receptor = ur.idusuario ORDER BY c.idconversacion DESC";
 		return ejecutarConsulta($sql);
 	}
 
 	public function listarPorUsuario($idusuario)
 	{
-		$sql = "SELECT c.idconversacion, c.asunto, c.mensaje, c.idusuario as emisorID, c.receptor as receptorID, ue.nombre as emisor, ur.nombre as receptor, DATE_FORMAT(c.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha FROM conversaciones c LEFT JOIN usuario ue ON c.idusuario = ue.idusuario LEFT JOIN usuario ur ON c.receptor = ur.idusuario WHERE c.receptor='$idusuario' OR c.receptor='0' ORDER BY c.idconversacion DESC";
+		$sql = "SELECT c.idconversacion, ue.idusuario, ue.cargo AS cargo, c.asunto, c.mensaje, c.idusuario as emisorID, c.receptor as receptorID, ue.nombre as emisor, ur.nombre as receptor, DATE_FORMAT(c.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha FROM conversaciones c LEFT JOIN usuario ue ON c.idusuario = ue.idusuario LEFT JOIN usuario ur ON c.receptor = ur.idusuario WHERE c.receptor='$idusuario' OR c.receptor='0' ORDER BY c.idconversacion DESC";
 		return ejecutarConsulta($sql);
 	}
 

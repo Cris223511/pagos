@@ -45,7 +45,7 @@ if (!isset($_SESSION["nombre"])) {
 
 				while ($reg = $rspta->fetch_object()) {
 					$cargo_detalle = "";
-					
+
 					switch ($reg->cargo) {
 						case 'superadmin':
 							$cargo_detalle = "Superadministrador";
@@ -69,18 +69,15 @@ if (!isset($_SESSION["nombre"])) {
 									<i class="fa fa-file"></i>
 								</button>
 							</a>') . '</div>',
-						"1" => $reg->fecha,
-						"2" => ucwords($reg->usuario),
-						"3" => ucwords($cargo_detalle),
-						"4" => $reg->banco,
-						"5" => "N° " . $reg->num_ticket,
-						"6" => $reg->operacion,
-						"7" => "N° " . $reg->num_ope,
-						"8" => $reg->local,
-						"9" => "N° " . $reg->local_ruc,
-						"10" => "S/. " . number_format($reg->importe, 2, '.', ','),
-						"11" => "S/. " . number_format($reg->comision, 2, '.', ','),
-						"12" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
+						"1" => '<strong>N° ' . $reg->num_ticket . '</strong>',
+						"2" => $reg->operacion,
+						"3" => "N° " . $reg->num_ope,
+						"4" => $reg->local,
+						"5" => "N° " . $reg->local_ruc,
+						"6" => ucwords($reg->usuario),
+						"7" => ucwords($cargo_detalle),
+						"8" => $reg->fecha,
+						"9" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'
 					);
 				}

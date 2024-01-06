@@ -77,7 +77,16 @@ class Operacion
 
 	public function listarPorUsuario($idusuario)
 	{
-		$sql = "SELECT o.idoperacion, u.idusuario, u.nombre as nombre, u.cargo as cargo, o.titulo, o.descripcion, DATE_FORMAT(o.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha, o.estado FROM operaciones o LEFT JOIN usuario u ON o.idusuario = u.idusuario WHERE o.idusuario = '$idusuario' AND o.eliminado = '0' ORDER BY o.idoperacion DESC";
+		$sql = "SELECT
+				  o.idoperacion, u.idusuario, u.nombre as nombre, u.cargo as cargo, 
+				  o.titulo, o.descripcion, DATE_FORMAT(o.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha, 
+				  o.estado 
+				FROM operaciones o 
+				LEFT JOIN usuario u ON o.idusuario = u.idusuario 
+				WHERE o.idoperacion IN (SELECT idoperacion FROM tickets WHERE idusuario = '$idusuario') 
+				AND o.eliminado = '0' 
+				ORDER BY o.idoperacion DESC";
+
 		return ejecutarConsulta($sql);
 	}
 

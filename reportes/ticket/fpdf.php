@@ -994,20 +994,14 @@ class FPDF
 		$this->SetTextColor(0, 0, 0);
 		$this->Cell(0, 5, utf8_decode("$fecha $hora"), 0, 'L', false);
 
-		# N° OPERACIÓN #
-		$this->SetXY(1.5, 5);
-		$this->SetFont('roboto-bold', '', 7.5);
-		$this->SetTextColor(0, 0, 0);
-		$this->Cell(0, 5, utf8_decode("N° OPERACIÓN: $num_ope"), 0, 'L', false);
-
 		# LOCAL #
-		$this->SetY(10.5);
+		$this->SetY(8.5);
 		$this->SetFont('roboto-bold', '', 7.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("$local")), 0, 'C', false);
 
 		# RUC #
-		$this->SetY(14);
+		$this->SetY(12);
 		$this->SetFont('roboto-bold', '', 7.5);
 		$this->SetTextColor(0, 0, 0);
 		$this->MultiCell(0, 5, utf8_decode(mb_strtoupper("RUC: $local_ruc")), 0, 'C', false);

@@ -36,7 +36,7 @@ if (!isset($_SESSION["nombre"])) {
 		switch ($_GET["op"]) {
 			case 'guardaryeditar':
 				if (empty($idticket)) {
-					$num_ticketExiste = $tickets->verficarNumTicket($num_ticket);
+					$num_ticketExiste = $tickets->verficarNumTicket($idlocal, $num_ticket);
 
 					if ($num_ticketExiste) {
 						echo "El número de ticket ya existe.";
@@ -51,7 +51,7 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'guardaryeditar2':
-				$num_ticketExiste = $tickets->verficarNumTicket($num_ticket);
+				$num_ticketExiste = $tickets->verficarNumTicket($idlocal, $num_ticket);
 
 				if ($num_ticketExiste) {
 					echo "El número de ticket ya existe.";
@@ -123,19 +123,19 @@ if (!isset($_SESSION["nombre"])) {
 								(('<button class="btn btn-danger" style="margin-right: 3px; width: 35px; height: 35px;" onclick="eliminar(' . $reg->idticket . ')"><i class="fa fa-trash"></i></button>')) .
 								(('<button class="btn btn-bcp" style="margin-right: 3px; width: 35px; height: 35px;" onclick="detalles(' . $reg->idticket . ')"><i style="margin-left: -1px" class="fa fa-eye"></i></button>')) .
 								(('<a href="../reportes/exTicket.php?id=' . $reg->idticket . '" target="_blank"><button class="btn btn-success" style="width: 35px; height: 35px;"><i class="fa fa-file"></i></button></a>')) . '</div>',
-							"1" => ucwords($reg->usuario),
-							"2" => ucwords($cargo_detalle),
+							"1" => "N° " . $reg->num_ticket,
+							"2" => "N° " . $reg->num_ope,
 							"3" => $reg->banco,
-							"4" => "N° " . $reg->num_ticket,
-							"5" => $reg->operacion,
-							"6" => "N° " . $reg->num_ope,
-							"7" => $reg->local,
-							"8" => "N° " . $reg->local_ruc,
-							"9" => "S/. " . number_format($reg->importe, 2, '.', ','),
-							"10" => "S/. " . number_format($reg->comision, 2, '.', ','),
+							"4" => $reg->operacion,
+							"5" => $reg->local,
+							"6" => "N° " . $reg->local_ruc,
+							"7" => "S/. " . number_format($reg->importe, 2, '.', ','),
+							"8" => "S/. " . number_format($reg->comision, 2, '.', ','),
+							"9" => ucwords($reg->usuario),
+							"10" => ucwords($cargo_detalle),
 							"11" => $reg->fecha,
 							"12" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
-								'<span class="label bg-red">Desactivado</span>'
+								'<span class="label bg-red">Desactivado</span>',
 						);
 					}
 					$results = array(
@@ -158,7 +158,7 @@ if (!isset($_SESSION["nombre"])) {
 				break;
 
 			case 'getLastNumTicket':
-				$result = $tickets->getLastNumTicket();
+				$result = $tickets->getLastNumTicket($idlocal_session);
 				if (mysqli_num_rows($result) > 0) {
 					$row = mysqli_fetch_assoc($result);
 					$last_num_ticket = $row["last_num_ticket"];
@@ -172,9 +172,9 @@ if (!isset($_SESSION["nombre"])) {
 
 			case 'listarTodosActivos':
 				if ($cargo == "superadmin" || $cargo == "admin") {
-					$rspta = $tickets->listarTodosActivos();
+					$rspta = $tickets->listarTodosActivos($idlocal_session);
 				} else {
-					$rspta = $tickets->listarTodosActivosPorUsuario($idusuario);
+					$rspta = $tickets->listarTodosActivosPorUsuario($idusuario, $idlocal_session);
 				}
 
 				$result = mysqli_fetch_all($rspta, MYSQLI_ASSOC);

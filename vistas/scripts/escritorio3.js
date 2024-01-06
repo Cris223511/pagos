@@ -2,6 +2,7 @@ var tabla;
 
 function init() {
     $('#mEscritorio').addClass("treeview active");
+    resetear();
 }
 
 function listar() {

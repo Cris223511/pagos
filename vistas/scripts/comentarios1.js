@@ -98,4 +98,15 @@ function mostrar(idconversacion) {
 	})
 }
 
+function eliminar(idconversacion) {
+	bootbox.confirm("¿Estás seguro de eliminar el comentario?", function (result) {
+		if (result) {
+			$.post("../ajax/comentarios.php?op=eliminar", { idconversacion: idconversacion }, function (e) {
+				bootbox.alert(e);
+				tabla.ajax.reload();
+			});
+		}
+	})
+}
+
 init();

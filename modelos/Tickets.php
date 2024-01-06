@@ -25,9 +25,9 @@ class Ticket
 		return array("success" => true, "idticket" => $idticketnew);
 	}
 
-	public function verficarNumTicket($num_ticket)
+	public function verficarNumTicket($idlocal, $num_ticket)
 	{
-		$sql = "SELECT * FROM tickets WHERE num_ticket = '$num_ticket'";
+		$sql = "SELECT * FROM tickets WHERE num_ticket = '$num_ticket' AND idlocal = '$idlocal'";
 		$resultado = ejecutarConsulta($sql);
 		if (mysqli_num_rows($resultado) > 0) {
 			// El número de ticket ya existe en la tabla
@@ -158,7 +158,7 @@ class Ticket
 
 	/* ======================= SELECTS ======================= */
 
-	public function listarTodosActivos()
+	public function listarTodosActivos($idlocal)
 	{
 		$sql = "SELECT 'banco' AS tabla, b.idbanco AS id, b.titulo, u.nombre AS usuario, NULL AS ruc FROM bancos b LEFT JOIN usuario u ON b.idusuario = u.idusuario WHERE b.estado='activado' AND b.eliminado='0'
 			UNION ALL
@@ -166,27 +166,27 @@ class Ticket
 			UNION ALL
 			SELECT 'local' AS tabla, l.idlocal AS id, l.titulo, u.nombre AS usuario, local_ruc AS ruc FROM locales l LEFT JOIN usuario u ON l.idusuario = u.idusuario WHERE l.idusuario <> 0 AND l.estado='activado' AND l.eliminado='0'
 			UNION ALL
-			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets ORDER BY idticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
+			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets WHERE idlocal = '$idlocal' ORDER BY idticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
 
 		return ejecutarConsulta($sql);
 	}
 
-	public function listarTodosActivosPorUsuario($idusuario)
+	public function listarTodosActivosPorUsuario($idusuario, $idlocal)
 	{
 		$sql = "SELECT 'banco' AS tabla, b.idbanco AS id, b.titulo, u.nombre AS usuario, NULL AS ruc FROM bancos b LEFT JOIN usuario u ON b.idusuario = u.idusuario WHERE b.estado='activado' AND b.eliminado='0'
 			UNION ALL
 			SELECT 'operacion' AS tabla, o.idoperacion AS id, o.titulo, u.nombre AS usuario, NULL AS ruc FROM operaciones o LEFT JOIN usuario u ON o.idusuario = u.idusuario WHERE o.estado='activado' AND o.eliminado='0'
 			UNION ALL
-			SELECT 'local' AS tabla, l.idlocal AS id, l.titulo, u.nombre AS usuario, local_ruc AS ruc FROM locales l LEFT JOIN usuario u ON l.idusuario = u.idusuario WHERE l.idusuario='$idusuario' AND l.idusuario <> 0 AND l.estado='activado' AND l.eliminado='0'
+			SELECT 'local' AS tabla, l.idlocal AS id, l.titulo, u.nombre AS usuario, local_ruc AS ruc FROM locales l LEFT JOIN usuario u ON l.idusuario = u.idusuario WHERE l.idlocal='$idlocal' AND l.idusuario <> 0 AND l.estado='activado' AND l.eliminado='0'
 			UNION ALL
-			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets ORDER BY idticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
+			SELECT 'correlativo' AS tabla, 0 AS id, (SELECT num_ticket FROM tickets WHERE idlocal = '$idlocal' ORDER BY idticket DESC LIMIT 1) AS correlativo, NULL AS usuario, NULL AS ruc";
 
 		return ejecutarConsulta($sql);
 	}
 
-	public function getLastNumTicket()
+	public function getLastNumTicket($idlocal)
 	{
-		$sql = "SELECT num_ticket as last_num_ticket FROM tickets ORDER BY idticket DESC LIMIT 1";
+		$sql = "SELECT num_ticket as last_num_ticket FROM tickets WHERE idlocal = '$idlocal' ORDER BY idticket DESC LIMIT 1";
 		return ejecutarConsulta($sql);
 	}
 }

@@ -53,34 +53,24 @@ if (!isset($_SESSION["nombre"])) {
                   <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important;">
                     <thead>
                       <th>Opciones</th>
-                      <th style="white-space: nowrap;">Fecha y hora</th>
+                      <th>Banco</th>
+                      <th>Ubicación el local</th>
+                      <th style="white-space: nowrap;">RUC DEL LOCAL</th>
                       <th style="white-space: nowrap;">Agregado por</th>
                       <th>Cargo</th>
-                      <th>Banco</th>
-                      <th style="white-space: nowrap;">N° Ticket</th>
-                      <th>Operación</th>
-                      <th style="white-space: nowrap;">N° Operación</th>
-                      <th>Local</th>
-                      <th style="white-space: nowrap;">RUC Local</th>
-                      <th>Importe</th>
-                      <th>Comisión</th>
+                      <th style="white-space: nowrap;">Fecha y hora</th>
                       <th>Estado</th>
                     </thead>
                     <tbody>
                     </tbody>
                     <tfoot>
                       <th>Opciones</th>
-                      <th>Fecha y hora</th>
+                      <th>Banco</th>
+                      <th>Ubicación el local</th>
+                      <th>RUC DEL LOCAL</th>
                       <th>Agregado por</th>
                       <th>Cargo</th>
-                      <th>Banco</th>
-                      <th>N° Ticket</th>
-                      <th>Operación</th>
-                      <th>N° Operación</th>
-                      <th>Local</th>
-                      <th>RUC Local</th>
-                      <th id="importe" class="nowrap-cell">S/. 0.00</th>
-                      <th id="comision" class="nowrap-cell">S/. 0.00</th>
+                      <th>Fecha y hora</th>
                       <th>Estado</th>
                     </tfoot>
                   </table>

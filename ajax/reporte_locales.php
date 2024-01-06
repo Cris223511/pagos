@@ -64,7 +64,7 @@ if (!isset($_SESSION["nombre"])) {
 					$data[] = array(
 						"0" => $reg->fecha,
 						"1" => $reg->titulo,
-						"2" => $reg->local_ruc,
+						"2" => "N° " . $reg->local_ruc,
 						"3" => $reg->descripcion,
 						"4" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'

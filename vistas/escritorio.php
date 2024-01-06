@@ -9,27 +9,6 @@ if (!isset($_SESSION["nombre"])) {
   require 'header.php';
 
   if ($_SESSION['escritorio'] == 1) {
-
-    $cargo = $_SESSION["cargo"];
-    $idusuario = $_SESSION["idusuario"];
-
-    require_once "../modelos/Escritorio.php";
-    $tickets = new Escritorio();
-    $datos = array();
-
-    if ($cargo == "superadmin" || $cargo == "admin") {
-      $rspta = $tickets->calcularTotalTickets();
-    } else {
-      $rspta = $tickets->calcularTotalTicketsPorUsuario($idusuario);
-    }
-
-    if ($rspta) {
-      $datos = $rspta->fetch_assoc();
-
-      $totalImporte = number_format($datos['total_importe'], 2, '.', ',');
-      $totalComision = number_format($datos['total_comision'], 2, '.', ',');
-      $totalTickets = $datos['total_tickets'];
-    }
 ?>
     <style>
       .tarjeta1 {
@@ -110,9 +89,8 @@ if (!isset($_SESSION["nombre"])) {
                   <input type="date" class="form-control" name="fecha_fin" id="fecha_fin">
                 </div>
                 <div style="display: flex; gap: 10px; padding: 15px; padding-top: 0px; padding-bottom: 0px;">
-                  <button style="margin-top: 10px;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 btn btn-bcp" id="buscarTodos" onclick="buscarTodos()">Calcular total</button>
-                  <button style="margin-top: 10px;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 btn btn-bcp" id="buscarPorFecha" onclick="buscarPorFecha()">Calcular por rango de fecha</button>
-                  <button style="margin-top: 10px;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 btn btn-success" id="resetear" onclick="resetear()">Resetear</button>
+                  <button style="margin-top: 10px;" class="col-lg-4 col-md-4 col-sm-12 col-xs-12 btn btn-bcp" id="buscarPorFecha" onclick="buscarPorFecha()">Calcular por rango de fecha</button>
+                  <button style="margin-top: 10px;" class="col-lg-4 col-md-4 col-sm-12 col-xs-12 btn btn-success" id="resetear" onclick="resetear()">Resetear</button>
                 </div>
               </div>
               <div class="panel-body formularioregistros" style="background-color: white !important; padding-left: 0 !important; padding-right: 0 !important; height: max-content;">
@@ -121,7 +99,7 @@ if (!isset($_SESSION["nombre"])) {
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 marco" style="padding-right: 10px">
                       <div class="tarjeta1">
                         <div class="display: flex; flex-direction: column; aligh-items: start; justify-content: start;">
-                          <h1 id="importe" style="z-index: 1000 !important">S/. <?php echo $totalImporte ?></h1>
+                          <h1 id="importe" style="z-index: 1000 !important">S/. 0.00</h1>
                           <span style="z-index: 1000 !important">Importe Total</span>
                           <i class="fa fa-money ticket1" style="position: absolute; top: 25px; right: 40px; font-size: 60px;"></i>
                         </div>
@@ -130,7 +108,7 @@ if (!isset($_SESSION["nombre"])) {
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 marco" style="padding-left: 10px; padding-right: 10px">
                       <div class="tarjeta2">
                         <div class="display: flex; flex-direction: column; aligh-items: start; justify-content: start;">
-                          <h1 id="comision" style="z-index: 1000 !important">S/. <?php echo $totalComision ?></h1>
+                          <h1 id="comision" style="z-index: 1000 !important">S/. 0.00</h1>
                           <span style="z-index: 1000 !important">Comisión Total</span>
                           <i class="fa fa-usd ticket2" style="position: absolute; top: 25px; right: 40px; font-size: 60px;"></i>
                         </div>
@@ -139,7 +117,7 @@ if (!isset($_SESSION["nombre"])) {
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 marco" style="padding-left: 10px;">
                       <div class="tarjeta3">
                         <div class="display: flex; flex-direction: column; aligh-items: start; justify-content: start;">
-                          <h1 id="ticket" style="z-index: 1000 !important"><?php echo $totalTickets ?></h1>
+                          <h1 id="ticket" style="z-index: 1000 !important">0</h1>
                           <span style="z-index: 1000 !important">Tickets Total</span>
                           <i class="fa fa-ticket ticket3" style="position: absolute; top: 25px; right: 40px; font-size: 60px;"></i>
                         </div>

@@ -78,18 +78,14 @@ if (!isset($_SESSION["nombre"])) {
 									<i class="fa fa-file"></i>
 								</button>
 							</a>') . '</div>',
-						"1" => $reg->fecha,
-						"2" => ucwords($reg->usuario),
-						"3" => ucwords($cargo_detalle),
-						"4" => $reg->banco,
-						"5" => "N° " . $reg->num_ticket,
-						"6" => $reg->operacion,
-						"7" => "N° " . $reg->num_ope,
-						"8" => $reg->local,
-						"9" => "N° " . $reg->local_ruc,
-						"10" => "S/. " . $reg->importe,
-						"11" => "S/. " . $reg->comision,
-						"12" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
+						"1" => "<strong>S/. " . $reg->importe . '</strong>',
+						"2" => "<strong>S/. " . $reg->comision . '</strong>',
+						"3" => $reg->local,
+						"4" => "N° " . $reg->local_ruc,
+						"5" => ucwords($reg->usuario),
+						"6" => ucwords($cargo_detalle),
+						"7" => $reg->fecha,
+						"8" => ($reg->estado == 'activado') ? '<span class="label bg-green">Activado</span>' :
 							'<span class="label bg-red">Desactivado</span>'
 					);
 				}

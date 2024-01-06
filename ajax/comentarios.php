@@ -60,16 +60,26 @@ if (!isset($_SESSION["nombre"])) {
 			case 'listar':
 				if ($cargo == "superadmin" || $cargo == "admin") {
 					$rspta = $comentarios->listar();
-				} elseif ($cargo == "vendedor_total") {
+				} else {
 					$rspta = $comentarios->listarPorUsuario($idusuario);
+				}
+
+				function mostrarBoton($cargo, $buttonType)
+				{
+					if ($cargo == "superadmin" || $cargo == "admin") {
+						return $buttonType;
+					} else {
+						return '';
+					}
 				}
 
 				$data = array();
 
 				while ($reg = $rspta->fetch_object()) {
 					$data[] = array(
-						"0" => '<div style="display: flex; justify-content: center">' .
-							(('<button class="btn btn-bcp" style="height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-eye"></i></button>')) . '</div>',
+						"0" => '<div style="display: flex; gap: 3px;">' .
+							(('<button class="btn btn-bcp" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-eye"></i></button>')) .
+							mostrarBoton($cargo, '<button class="btn btn-danger" style="height: 35px;" onclick="eliminar(' . $reg->idconversacion . ')"><i class="fa fa-trash"></i></button>'),
 						"1" => $reg->emisor,
 						"2" => ($reg->receptor == "") ? "todos" : $reg->receptor,
 						"3" => $reg->asunto,
@@ -94,7 +104,7 @@ if (!isset($_SESSION["nombre"])) {
 
 				while ($reg = $rspta->fetch_object()) {
 					$reg->mensaje = (strlen($reg->mensaje) > 70) ? substr($reg->mensaje, 0, 70) . "..." : $reg->mensaje;
-					
+
 					$data[] = array(
 						"0" => '<div style="display: flex; flex-wrap: nowrap; gap: 3px">' .
 							(('<button class="btn btn-warning" style="margin-right: 3px; height: 35px;" onclick="mostrar(' . $reg->idconversacion . ')"><i class="fa fa-pencil"></i></button>')) .

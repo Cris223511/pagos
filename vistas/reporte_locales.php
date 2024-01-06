@@ -53,8 +53,8 @@ if (!isset($_SESSION["nombre"])) {
                   <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover w-100" style="width: 100% !important;">
                     <thead>
                       <th style="white-space: nowrap;">Fecha y hora</th>
-                      <th>Local</th>
-                      <th style="white-space: nowrap;">RUC Local</th>
+                      <th>Ubicación el local</th>
+                      <th style="white-space: nowrap;">RUC DEL LOCAL</th>
                       <th style="width: 40%; min-width: 280px; white-space: nowrap;">Descripción del local</th>
                       <th>Estado</th>
                     </thead>
@@ -62,9 +62,9 @@ if (!isset($_SESSION["nombre"])) {
                     </tbody>
                     <tfoot>
                       <th>Fecha y hora</th>
-                      <th>Local</th>
-                      <th>RUC Local</th>
-                      <th>Descripción</th>
+                      <th>Ubicación el local</th>
+                      <th>RUC DEL LOCAL</th>
+                      <th>Descripción del local</th>
                       <th>Estado</th>
                     </tfoot>
                   </table>

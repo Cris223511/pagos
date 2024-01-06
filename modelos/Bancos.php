@@ -77,7 +77,16 @@ class Banco
 
 	public function listarPorUsuario($idusuario)
 	{
-		$sql = "SELECT b.idbanco, u.idusuario, u.nombre as nombre, u.cargo as cargo, b.titulo, b.descripcion, DATE_FORMAT(b.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha, b.estado FROM bancos b LEFT JOIN usuario u ON b.idusuario = u.idusuario WHERE b.idusuario = '$idusuario' AND b.eliminado = '0' ORDER BY b.idbanco DESC";
+		$sql = "SELECT
+				  b.idbanco, u.idusuario, u.nombre as nombre, u.cargo as cargo, 
+				  b.titulo, b.descripcion, DATE_FORMAT(b.fecha_hora, '%d-%m-%Y %H:%i:%s') as fecha, 
+				  b.estado 
+				FROM bancos b 
+				LEFT JOIN usuario u ON b.idusuario = u.idusuario 
+				WHERE b.idbanco IN (SELECT idbanco FROM tickets WHERE idusuario = '$idusuario') 
+				AND b.eliminado = '0' 
+				ORDER BY b.idbanco DESC";
+
 		return ejecutarConsulta($sql);
 	}
 

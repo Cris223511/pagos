@@ -26,7 +26,7 @@ function listarVacio() {
 			},
 			"bDestroy": true,
 			"iDisplayLength": 5,
-			"order": [],
+			"order": [[1, 'asc']],
 			"bFilter": false,
 			"createdRow": function (row, data, dataIndex) {
 				$(row).find('td').addClass('nowrap-cell');
@@ -34,27 +34,27 @@ function listarVacio() {
 		}).DataTable();
 }
 
-function calcularTotales() {
-	let totalImporte = 0;
-	let totalComisiones = 0;
+// function calcularTotales() {
+// 	let totalImporte = 0;
+// 	let totalComisiones = 0;
 
-	let table = $('#tbllistado').DataTable();
+// 	let table = $('#tbllistado').DataTable();
 
-	table.rows().every(function () {
-		let rowData = this.data();
-		let importeValue = parseFloat(rowData[10].replaceAll('S/. ', '').replaceAll(',', ''));
-		let comisionesValue = parseFloat(rowData[11].replaceAll('S/. ', '').replaceAll(',', ''));
+// 	table.rows().every(function () {
+// 		let rowData = this.data();
+// 		let importeValue = parseFloat(rowData[10].replaceAll('S/. ', '').replaceAll(',', ''));
+// 		let comisionesValue = parseFloat(rowData[11].replaceAll('S/. ', '').replaceAll(',', ''));
 
-		console.log(importeValue);
-		console.log(comisionesValue);
+// 		console.log(importeValue);
+// 		console.log(comisionesValue);
 
-		totalImporte += importeValue;
-		totalComisiones += comisionesValue;
-	});
+// 		totalImporte += importeValue;
+// 		totalComisiones += comisionesValue;
+// 	});
 
-	$('#importe').text('S/. ' + totalImporte.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-	$('#comision').text('S/. ' + totalComisiones.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-}
+// 	$('#importe').text('S/. ' + totalImporte.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+// 	$('#comision').text('S/. ' + totalComisiones.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+// }
 
 function listar() {
 	$("#fecha_inicio").val("");
@@ -100,9 +100,9 @@ function listar() {
 			},
 			"bDestroy": true,
 			"iDisplayLength": 5,
-			"order": [],
+			"order": [[1, 'asc']],
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11), td:eq(12)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
@@ -110,7 +110,7 @@ function listar() {
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
-		calcularTotales();
+		// calcularTotales();
 	});
 }
 
@@ -163,10 +163,10 @@ function buscarPorFecha() {
 			},
 			"bDestroy": true,
 			"iDisplayLength": 5,
-			"order": [],
+			"order": [[1, 'asc']],
 			"bFilter": false,
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11), td:eq(12)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
@@ -174,7 +174,7 @@ function buscarPorFecha() {
 		$("#buscarTodos").prop("disabled", false);
 		$("#buscarPorFecha").prop("disabled", false);
 		$("#resetear").prop("disabled", false);
-		calcularTotales();
+		// calcularTotales();
 	});
 }
 

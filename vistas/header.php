@@ -189,7 +189,7 @@ $local_login = $_SESSION['local'];
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <li class="dropdown user user-menu" style="background: #002a8e !important; display: inline-flex; align-items: center; height: 50px;">
-              <span style="color: white !important;" class="hidden-xs user-info local"><?php echo '<strong> Local: ' . $local_login . '</strong>' ?></span>
+              <span style="color: white !important;" class="hidden-xs user-info local"><?php if ($_SESSION["cargo"] == "superadmin") echo '<strong> (Local principal) </strong>' ?> <?php echo '<strong> Local: ' . $local_login . '</strong>' ?></span>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white !important; height: 50px;">
                 <img src="../files/usuarios/<?php echo $_SESSION['imagen']; ?>" class="user-image" alt="User Image">
                 <span class="hidden-xs user-info user"><?php echo $nombre_login; ?> - <?php echo '<strong> Rol: ' . $cargo_login . '</strong>' ?></span>

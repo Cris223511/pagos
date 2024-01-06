@@ -21,8 +21,8 @@ function calcularTotales() {
 
 	table.rows().every(function () {
 		let rowData = this.data();
-		let importeValue = parseFloat(rowData[10].replaceAll('S/. ', '').replaceAll(',', ''));
-		let comisionesValue = parseFloat(rowData[11].replaceAll('S/. ', '').replaceAll(',', ''));
+		let importeValue = parseFloat(rowData[1].replaceAll('<strong>S/. ', '').replaceAll(',', '').replaceAll('</strong>', ''));
+		let comisionesValue = parseFloat(rowData[2].replaceAll('<strong>S/. ', '').replaceAll(',', '').replaceAll('</strong>', ''));
 
 		console.log(importeValue);
 		console.log(comisionesValue);
@@ -104,7 +104,7 @@ function listar() {
 			"order": [],
 			"bFilter": false,
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11), td:eq(12)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
@@ -178,7 +178,7 @@ function buscarPorFecha() {
 			"iDisplayLength": 5,
 			"order": [],
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11), td:eq(12)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
@@ -245,7 +245,7 @@ function buscarPorUsuario() {
 			"iDisplayLength": 5,
 			"order": [],
 			"createdRow": function (row, data, dataIndex) {
-				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11), td:eq(12)').addClass('nowrap-cell');
+				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8)').addClass('nowrap-cell');
 			}
 		}).DataTable();
 
