@@ -137,6 +137,11 @@ $local_login = $_SESSION['local'];
   textarea {
     resize: none;
   }
+
+  #total2,
+  #total {
+    font-weight: bold;
+  }
 </style>
 
 <!DOCTYPE html>

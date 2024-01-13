@@ -33,7 +33,6 @@ function listarVacio() {
 			"bDestroy": true,
 			"iDisplayLength": 5,
 			"order": [],
-			"bFilter": false,
 			"createdRow": function (row, data, dataIndex) {
 				$(row).find('td').addClass('nowrap-cell');
 			}
@@ -80,7 +79,6 @@ function listar() {
 			"bDestroy": true,
 			"iDisplayLength": 5,
 			"order": [],
-			"bFilter": false,
 			"createdRow": function (row, data, dataIndex) {
 				$(row).find('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6), td:eq(7), td:eq(8), td:eq(9), td:eq(10), td:eq(11)').addClass('nowrap-cell');
 			}
