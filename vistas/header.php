@@ -142,6 +142,10 @@ $local_login = $_SESSION['local'];
   #total {
     font-weight: bold;
   }
+
+  .box {
+    box-shadow: none !important;
+  }
 </style>
 
 <!DOCTYPE html>
