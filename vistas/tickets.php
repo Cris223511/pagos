@@ -117,7 +117,8 @@ if (!isset($_SESSION["nombre"])) {
               <div class="panel-body formularioregistros" style="height: max-content;">
                 <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
                   <label>N° de ticket(*):</label>
-                  <input type="number" class="form-control" name="num_ticket" id="num_ticket" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12" placeholder="Ingrese el N° de ticket." required>
+                  <input type="text" class="form-control" name="num_ticket" id="num_ticket" oninput="onlyNumbersAndMaxLenght(this)" onblur="formatearNumero(this)" maxlength="12" placeholder="Ingrese el N° de ticket." required />
+
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <label>N° de operación(*):</label>
