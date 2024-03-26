@@ -21,4 +21,17 @@ class Perfiles
 		$sql = "UPDATE usuario SET idlocal='$idlocal',nombre='$nombre',tipo_documento='$tipo_documento',num_documento='$num_documento',direccion='$direccion',telefono='$telefono',email='$email',login='$login',clave='$clave',imagen='$imagen' WHERE idusuario='$idusuario'";
 		return ejecutarConsulta($sql);
 	}
+
+	/* ===================  PORTADA DE LOGIN ====================== */
+	public function actualizarPortadaLogin($imagen)
+	{
+		$sql = "UPDATE portada_login SET imagen='$imagen'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function obtenerPortadaLogin()
+	{
+		$sql = "SELECT * FROM portada_login";
+		return ejecutarConsultaSimpleFila($sql);
+	}
 }

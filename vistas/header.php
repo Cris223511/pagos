@@ -145,6 +145,7 @@ $local_login = $_SESSION['local'];
 
   .box {
     box-shadow: none !important;
+    border-top: 3px #002a8e solid !important;
   }
 </style>
 
@@ -328,6 +329,13 @@ $local_login = $_SESSION['local'];
             </a>
             <ul class="treeview-menu">
               <li id="lConfUsuario"><a href="confUsuario.php"><i class="fa fa-circle-o"></i> Configuración de perfil</a></li>
+              ';
+            if ($_SESSION['cargo'] == "superadmin" || $_SESSION['cargo'] == "admin") {
+              echo '
+                <li id="lConfPortada"><a href="confPortada.php"><i class="fa fa-circle-o"></i> Configuración de portada</a></li>
+                ';
+            }
+            echo '
               <li id="lLocales"><a href="locales.php"><i class="fa fa-circle-o"></i> Mi local</a></li>
               <li id="lrLocales"><a href="reporte_locales.php"><i class="fa fa-circle-o"></i> Reporte de locales</a></li>
               ';
